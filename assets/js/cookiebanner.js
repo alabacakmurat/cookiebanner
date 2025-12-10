@@ -1,7 +1,7 @@
 /**
- * VKM Cookie Banner - JavaScript Module
+ * Havax Cookie Banner - JavaScript Module
  * @version 1.0.0
- * @author VKM Admins
+ * @author Havax
  * @license MIT
  */
 
@@ -10,7 +10,7 @@
 
     // Default configuration
     const DEFAULT_CONFIG = {
-        cookieName: 'vkm_cookie_consent',
+        cookieName: 'havax_cb_consent',
         cookieExpiry: 365,
         cookiePath: '/',
         cookieDomain: '',
@@ -30,21 +30,21 @@
 
     // Event names
     const EVENTS = {
-        INIT: 'vkm:init',
-        CONSENT_GIVEN: 'vkm:consent:given',
-        CONSENT_UPDATED: 'vkm:consent:updated',
-        CONSENT_WITHDRAWN: 'vkm:consent:withdrawn',
-        BANNER_SHOWN: 'vkm:banner:shown',
-        BANNER_HIDDEN: 'vkm:banner:hidden',
-        PREFERENCES_OPENED: 'vkm:preferences:opened',
-        PREFERENCES_CLOSED: 'vkm:preferences:closed',
-        SCRIPT_LOADED: 'vkm:script:loaded',
-        SCRIPT_BLOCKED: 'vkm:script:blocked',
-        CATEGORY_ENABLED: 'vkm:category:enabled',
-        CATEGORY_DISABLED: 'vkm:category:disabled',
+        INIT: 'havax-cb:init',
+        CONSENT_GIVEN: 'havax-cb:consent:given',
+        CONSENT_UPDATED: 'havax-cb:consent:updated',
+        CONSENT_WITHDRAWN: 'havax-cb:consent:withdrawn',
+        BANNER_SHOWN: 'havax-cb:banner:shown',
+        BANNER_HIDDEN: 'havax-cb:banner:hidden',
+        PREFERENCES_OPENED: 'havax-cb:preferences:opened',
+        PREFERENCES_CLOSED: 'havax-cb:preferences:closed',
+        SCRIPT_LOADED: 'havax-cb:script:loaded',
+        SCRIPT_BLOCKED: 'havax-cb:script:blocked',
+        CATEGORY_ENABLED: 'havax-cb:category:enabled',
+        CATEGORY_DISABLED: 'havax-cb:category:disabled',
     };
 
-    class VkmCookieBanner {
+    class HavaxCbBanner {
         constructor(config = {}) {
             this.config = { ...DEFAULT_CONFIG, ...config };
             this.consent = null;
@@ -90,7 +90,7 @@
         setupBlockingMode() {
             if (!this.hasConsent()) {
                 // Lock body scroll
-                document.body.classList.add('vkm-blocking-active');
+                document.body.classList.add('havax-cb-blocking-active');
 
                 // Show banner immediately
                 this.showBanner();
@@ -107,15 +107,15 @@
             // Disable all links and buttons outside the banner
             const disableInteraction = (e) => {
                 const target = e.target;
-                const banner = document.getElementById('vkm-cookie-banner');
-                const prefsModal = document.getElementById('vkm-preferences-modal');
+                const banner = document.getElementById('havax-cb-cookie-banner');
+                const prefsModal = document.getElementById('havax-cb-preferences-modal');
 
                 // Allow interaction within banner and preferences modal
                 if (banner && banner.contains(target)) return;
                 if (prefsModal && prefsModal.contains(target)) return;
 
                 // Allow policy links (they open in new tab)
-                if (target.closest('.vkm-policy-link')) return;
+                if (target.closest('.havax-cb-policy-link')) return;
 
                 // Block everything else in blocking mode
                 if (this.config.blockingMode && !this.hasConsent()) {
@@ -130,7 +130,7 @@
                 if (this.config.blockingMode && !this.hasConsent()) {
                     // Allow Tab and Escape for accessibility
                     if (e.key !== 'Tab' && e.key !== 'Escape') {
-                        const banner = document.getElementById('vkm-cookie-banner');
+                        const banner = document.getElementById('havax-cb-cookie-banner');
                         if (!banner || !banner.contains(e.target)) {
                             e.preventDefault();
                             e.stopPropagation();
@@ -158,10 +158,10 @@
          * Setup DOM elements
          */
         setupElements() {
-            this.banner = document.getElementById('vkm-cookie-banner');
-            this.preferencesModal = document.getElementById('vkm-preferences-modal');
-            this.floatingPanel = document.getElementById('vkm-floating-panel');
-            this.floatingButton = document.getElementById('vkm-floating-button');
+            this.banner = document.getElementById('havax-cb-cookie-banner');
+            this.preferencesModal = document.getElementById('havax-cb-preferences-modal');
+            this.floatingPanel = document.getElementById('havax-cb-floating-panel');
+            this.floatingButton = document.getElementById('havax-cb-floating-button');
         }
 
         /**
@@ -381,7 +381,7 @@
 
             // In blocking mode, re-lock the body
             if (this.config.blockingMode) {
-                document.body.classList.add('vkm-blocking-active');
+                document.body.classList.add('havax-cb-blocking-active');
             }
 
             // Show banner again
@@ -464,15 +464,15 @@
             .then(response => response.json())
             .then(result => {
                 if (result.success) {
-                    this.dispatchEvent('vkm:api:success', { action, result });
+                    this.dispatchEvent('havax-cb:api:success', { action, result });
                 } else {
-                    this.dispatchEvent('vkm:api:error', { action, error: result.error });
+                    this.dispatchEvent('havax-cb:api:error', { action, error: result.error });
                 }
                 return result;
             })
             .catch(error => {
-                console.error('VKM Cookie Banner API error:', error);
-                this.dispatchEvent('vkm:api:error', { action, error: error.message });
+                console.error('Havax Cookie Banner API error:', error);
+                this.dispatchEvent('havax-cb:api:error', { action, error: error.message });
                 return null;
             });
         }
@@ -524,13 +524,13 @@
          */
         showBanner() {
             if (this.banner) {
-                this.banner.classList.add('vkm-visible');
+                this.banner.classList.add('havax-cb-visible');
                 this.banner.setAttribute('aria-hidden', 'false');
                 this.dispatchEvent(EVENTS.BANNER_SHOWN, {});
 
                 // In blocking mode, ensure body is locked
                 if (this.config.blockingMode && !this.hasConsent()) {
-                    document.body.classList.add('vkm-blocking-active');
+                    document.body.classList.add('havax-cb-blocking-active');
                 }
             }
         }
@@ -540,13 +540,13 @@
          */
         hideBanner() {
             if (this.banner) {
-                this.banner.classList.remove('vkm-visible');
+                this.banner.classList.remove('havax-cb-visible');
                 this.banner.setAttribute('aria-hidden', 'true');
                 this.dispatchEvent(EVENTS.BANNER_HIDDEN, {});
 
                 // Unlock body if in blocking mode and consent given
                 if (this.config.blockingMode && this.hasConsent()) {
-                    document.body.classList.remove('vkm-blocking-active');
+                    document.body.classList.remove('havax-cb-blocking-active');
                 }
             }
         }
@@ -556,9 +556,9 @@
          */
         showPreferences() {
             if (this.preferencesModal) {
-                this.preferencesModal.classList.add('vkm-visible');
+                this.preferencesModal.classList.add('havax-cb-visible');
                 this.preferencesModal.setAttribute('aria-hidden', 'false');
-                document.body.classList.add('vkm-modal-open');
+                document.body.classList.add('havax-cb-modal-open');
                 this.dispatchEvent(EVENTS.PREFERENCES_OPENED, {});
 
                 // Sync checkboxes with current consent
@@ -571,9 +571,9 @@
          */
         closePreferences() {
             if (this.preferencesModal) {
-                this.preferencesModal.classList.remove('vkm-visible');
+                this.preferencesModal.classList.remove('havax-cb-visible');
                 this.preferencesModal.setAttribute('aria-hidden', 'true');
-                document.body.classList.remove('vkm-modal-open');
+                document.body.classList.remove('havax-cb-modal-open');
                 this.dispatchEvent(EVENTS.PREFERENCES_CLOSED, {});
             }
         }
@@ -583,9 +583,9 @@
          */
         toggleFloatingPanel() {
             if (this.floatingPanel) {
-                const isVisible = this.floatingPanel.classList.toggle('vkm-visible');
+                const isVisible = this.floatingPanel.classList.toggle('havax-cb-visible');
                 if (this.floatingButton) {
-                    this.floatingButton.classList.toggle('vkm-active', isVisible);
+                    this.floatingButton.classList.toggle('havax-cb-active', isVisible);
                 }
                 this.syncCheckboxes();
             }
@@ -631,15 +631,15 @@
          * Process scripts already in DOM
          */
         processExistingScripts() {
-            document.querySelectorAll('script[data-vkm-category]').forEach(script => {
-                const category = script.dataset.vkmCategory;
+            document.querySelectorAll('script[data-havax-cb-category]').forEach(script => {
+                const category = script.dataset.havaxCbCategory;
                 if (this.hasConsentFor(category)) {
                     this.activateScript(script);
                 } else {
                     this.blockedScripts.push({
                         element: script,
                         category,
-                        id: script.dataset.vkmScriptId || null,
+                        id: script.dataset.havaxCbScriptId || null,
                     });
                 }
             });
@@ -672,12 +672,12 @@
          */
         processScript(script) {
             // Skip if already processed
-            if (script.dataset.vkmProcessed) return;
-            script.dataset.vkmProcessed = 'true';
+            if (script.dataset.havaxCbProcessed) return;
+            script.dataset.havaxCbProcessed = 'true';
 
             // Check if it has a category
-            if (script.dataset.vkmCategory) {
-                const category = script.dataset.vkmCategory;
+            if (script.dataset.havaxCbCategory) {
+                const category = script.dataset.havaxCbCategory;
                 if (!this.hasConsentFor(category)) {
                     this.blockScript(script, category);
                 }
@@ -715,11 +715,11 @@
 
             // Disable the script
             script.type = 'text/plain';
-            script.dataset.vkmCategory = category;
-            script.dataset.vkmOriginalType = originalType || 'text/javascript';
+            script.dataset.havaxCbCategory = category;
+            script.dataset.havaxCbOriginalType = originalType || 'text/javascript';
 
             if (originalSrc) {
-                script.dataset.vkmOriginalSrc = originalSrc;
+                script.dataset.havaxCbOriginalSrc = originalSrc;
                 script.removeAttribute('src');
             }
 
@@ -753,8 +753,8 @@
                     const category = self.detectScriptCategory(value);
                     if (category && !self.hasConsentFor(category)) {
                         this.type = 'text/plain';
-                        this.dataset.vkmCategory = category;
-                        this.dataset.vkmOriginalSrc = value;
+                        this.dataset.havaxCbCategory = category;
+                        this.dataset.havaxCbOriginalSrc = value;
 
                         self.blockedScripts.push({
                             element: this,
@@ -790,8 +790,8 @@
             });
 
             // Also process any text/plain scripts in DOM
-            document.querySelectorAll('script[type="text/plain"][data-vkm-category]').forEach(script => {
-                const category = script.dataset.vkmCategory;
+            document.querySelectorAll('script[type="text/plain"][data-havax-cb-category]').forEach(script => {
+                const category = script.dataset.havaxCbCategory;
                 if (accepted.includes(category)) {
                     this.activateScript(script);
                 }
@@ -802,24 +802,24 @@
          * Activate a blocked script
          */
         activateScript(script) {
-            const category = script.dataset.vkmCategory;
+            const category = script.dataset.havaxCbCategory;
 
             // Create a new script element
             const newScript = document.createElement('script');
 
             // Copy attributes
             Array.from(script.attributes).forEach(attr => {
-                if (attr.name !== 'type' && !attr.name.startsWith('data-vkm')) {
+                if (attr.name !== 'type' && !attr.name.startsWith('data-havax-cb')) {
                     newScript.setAttribute(attr.name, attr.value);
                 }
             });
 
             // Set correct type
-            newScript.type = script.dataset.vkmOriginalType || 'text/javascript';
+            newScript.type = script.dataset.havaxCbOriginalType || 'text/javascript';
 
             // Handle src or inline content
-            if (script.dataset.vkmOriginalSrc) {
-                newScript.src = script.dataset.vkmOriginalSrc;
+            if (script.dataset.havaxCbOriginalSrc) {
+                newScript.src = script.dataset.havaxCbOriginalSrc;
             } else if (script.src) {
                 newScript.src = script.src;
             } else {
@@ -959,23 +959,23 @@
     }
 
     // Expose to global scope
-    window.VkmCookieBanner = VkmCookieBanner;
+    window.HavaxCbBanner = HavaxCbBanner;
 
     // Also expose event names
-    window.VkmCookieBanner.EVENTS = EVENTS;
+    window.HavaxCbBanner.EVENTS = EVENTS;
 
     // Auto-initialize if config is present
-    if (window.vkmCookieBannerConfig) {
+    if (window.havaxCbConfig) {
         // Create instance
-        window.vkmCookieBanner = new VkmCookieBanner(window.vkmCookieBannerConfig);
+        window.havaxCbInstance = new HavaxCbBanner(window.havaxCbConfig);
 
         // Dispatch init event on next tick to allow listeners to be registered
         // This ensures user's event listeners added after this script are called
         setTimeout(() => {
             document.dispatchEvent(new CustomEvent(EVENTS.INIT, {
                 detail: {
-                    instance: window.vkmCookieBanner,
-                    consent: window.vkmCookieBanner.consent,
+                    instance: window.havaxCbInstance,
+                    consent: window.havaxCbInstance.consent,
                     timestamp: new Date().toISOString(),
                 },
                 bubbles: true,

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace VkmToolkit\CookieBanner\Event;
+namespace Havax\CookieBanner\Event;
 
 abstract class AbstractEvent implements EventInterface
 {
-    protected bool $propagationStopped = false;
+	protected bool $propagationStopped = false;
 
-    abstract public function getName(): string;
+	abstract public function getName(): string;
 
-    public function stopPropagation(): void
-    {
-        $this->propagationStopped = true;
-    }
+	public function stopPropagation(): void
+	{
+		$this->propagationStopped = true;
+	}
 
-    public function isPropagationStopped(): bool
-    {
-        return $this->propagationStopped;
-    }
+	public function isPropagationStopped(): bool
+	{
+		return $this->propagationStopped;
+	}
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * VKM Cookie Banner - User Tracking Example
+ * Havax Cookie Banner - User Tracking Example
  *
  * This example demonstrates how to associate cookie consent with logged-in users.
  * This is useful for:
@@ -13,8 +13,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use VkmToolkit\CookieBanner\CookieBanner;
-use VkmToolkit\CookieBanner\Event\ConsentEvent;
+use Havax\CookieBanner\CookieBanner;
+use Havax\CookieBanner\Event\ConsentEvent;
 
 // ============================================================
 // Simulate a logged-in user (replace with your auth system)
@@ -160,7 +160,7 @@ $consent = $banner->getConsent();
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>User Tracking - VKM Cookie Banner</title>
+	<title>User Tracking - Havax Cookie Banner</title>
 	<?= $banner->renderCss() ?>
 	<style>
 		* {
@@ -492,10 +492,10 @@ $consent = $banner->getConsent();
 			<?php endif; ?>
 
 			<div class="btn-group">
-				<button class="btn btn-primary" onclick="vkmCookieBanner.showBanner()">Show Consent Banner</button>
-				<button class="btn btn-secondary" onclick="vkmCookieBanner.showPreferences()">Open Preferences</button>
+				<button class="btn btn-primary" onclick="havaxCbInstance.showBanner()">Show Consent Banner</button>
+				<button class="btn btn-secondary" onclick="havaxCbInstance.showPreferences()">Open Preferences</button>
 				<?php if ($hasConsent): ?>
-					<button class="btn btn-danger" onclick="vkmCookieBanner.withdrawConsent()">Withdraw Consent</button>
+					<button class="btn btn-danger" onclick="havaxCbInstance.withdrawConsent()">Withdraw Consent</button>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -563,18 +563,18 @@ $consent = $banner->getConsent();
 
 	<script>
 		// Show banner if no consent
-		document.addEventListener('vkm:init', function() {
-			if (!vkmCookieBanner.hasConsent()) {
-				vkmCookieBanner.showBanner();
+		document.addEventListener('havax-cb:init', function() {
+			if (!havaxCbInstance.hasConsent()) {
+				havaxCbInstance.showBanner();
 			}
 		});
 
 		// Reload page on consent change
-		document.addEventListener('vkm:consent:given', function() {
+		document.addEventListener('havax-cb:consent:given', function() {
 			setTimeout(() => location.reload(), 500);
 		});
 
-		document.addEventListener('vkm:consent:withdrawn', function() {
+		document.addEventListener('havax-cb:consent:withdrawn', function() {
 			setTimeout(() => location.reload(), 500);
 		});
 	</script>

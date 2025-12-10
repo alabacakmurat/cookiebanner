@@ -1,79 +1,79 @@
 /**
- * VKM Cookie Banner - Floating Template Styles
+ * Havax Cookie Banner - Floating Template Styles
  * Floating button that expands to show cookie options
  * Note: base.css is automatically included by TemplateManager
  */
 
 /* Floating Banner */
-.vkm-cookie-banner.vkm-floating {
+.havax-cb-cookie-banner.havax-cb-floating {
     padding: 16px;
 }
 
 /* Positions */
-.vkm-cookie-banner.vkm-floating.vkm-position-bottom-left {
+.havax-cb-cookie-banner.havax-cb-floating.havax-cb-position-bottom-left {
     bottom: 0;
     left: 0;
 }
 
-.vkm-cookie-banner.vkm-floating.vkm-position-bottom-right {
+.havax-cb-cookie-banner.havax-cb-floating.havax-cb-position-bottom-right {
     bottom: 0;
     right: 0;
 }
 
 /* Floating Button */
-.vkm-floating-button {
+.havax-cb-floating-button {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--vkm-primary), #3b82f6);
+    background: linear-gradient(135deg, var(--havax-cb-primary), #3b82f6);
     border: none;
-    box-shadow: var(--vkm-shadow-lg);
+    box-shadow: var(--havax-cb-shadow-lg);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--vkm-transition);
+    transition: all var(--havax-cb-transition);
     position: relative;
 }
 
-.vkm-floating-button:hover {
+.havax-cb-floating-button:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 20px -5px rgba(37, 99, 235, 0.4);
 }
 
-.vkm-floating-button svg {
+.havax-cb-floating-button svg {
     color: white;
-    transition: all var(--vkm-transition);
+    transition: all var(--havax-cb-transition);
 }
 
-.vkm-floating-button .vkm-icon-cookie {
+.havax-cb-floating-button .havax-cb-icon-cookie {
     opacity: 1;
     transform: scale(1);
 }
 
-.vkm-floating-button .vkm-icon-close {
+.havax-cb-floating-button .havax-cb-icon-close {
     position: absolute;
     opacity: 0;
     transform: scale(0.5) rotate(-90deg);
 }
 
-.vkm-floating-button.vkm-active .vkm-icon-cookie {
+.havax-cb-floating-button.havax-cb-active .havax-cb-icon-cookie {
     opacity: 0;
     transform: scale(0.5) rotate(90deg);
 }
 
-.vkm-floating-button.vkm-active .vkm-icon-close {
+.havax-cb-floating-button.havax-cb-active .havax-cb-icon-close {
     opacity: 1;
     transform: scale(1) rotate(0deg);
 }
 
 /* Floating Panel */
-.vkm-floating-panel {
+.havax-cb-floating-panel {
     position: absolute;
     bottom: 72px;
-    background: var(--vkm-background);
-    border-radius: var(--vkm-radius-lg);
-    box-shadow: var(--vkm-shadow-lg);
+    background: var(--havax-cb-background);
+    border-radius: var(--havax-cb-radius-lg);
+    box-shadow: var(--havax-cb-shadow-lg);
     width: 320px;
     opacity: 0;
     visibility: hidden;
@@ -82,93 +82,93 @@
     transform-origin: bottom;
 }
 
-.vkm-position-bottom-left .vkm-floating-panel {
+.havax-cb-position-bottom-left .havax-cb-floating-panel {
     left: 0;
     transform-origin: bottom left;
 }
 
-.vkm-position-bottom-right .vkm-floating-panel {
+.havax-cb-position-bottom-right .havax-cb-floating-panel {
     right: 0;
     transform-origin: bottom right;
 }
 
-.vkm-floating-panel.vkm-visible {
+.havax-cb-floating-panel.havax-cb-visible {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
 }
 
 /* Panel Header */
-.vkm-panel-header {
+.havax-cb-panel-header {
     padding: 16px 20px 12px;
 }
 
-.vkm-panel-title {
+.havax-cb-panel-title {
     font-size: 16px;
     font-weight: 600;
     margin: 0;
 }
 
 /* Panel Body */
-.vkm-panel-body {
+.havax-cb-panel-body {
     padding: 0 20px 16px;
 }
 
-.vkm-panel-description {
+.havax-cb-panel-description {
     font-size: 13px;
-    color: var(--vkm-text-muted);
+    color: var(--havax-cb-text-muted);
     margin: 0 0 16px 0;
     line-height: 1.5;
 }
 
 /* Categories List */
-.vkm-categories-list {
+.havax-cb-categories-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 12px;
 }
 
-.vkm-category-item {
+.havax-cb-category-item {
     flex: 0 0 auto;
 }
 
 /* Pill Toggle */
-.vkm-pill-toggle {
+.havax-cb-pill-toggle {
     display: inline-flex;
     cursor: pointer;
 }
 
-.vkm-pill-toggle input {
+.havax-cb-pill-toggle input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
-.vkm-pill-label {
+.havax-cb-pill-label {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 6px 14px;
     font-size: 13px;
-    background: var(--vkm-surface);
-    border: 1px solid var(--vkm-border);
+    background: var(--havax-cb-surface);
+    border: 1px solid var(--havax-cb-border);
     border-radius: 20px;
-    transition: all var(--vkm-transition);
+    transition: all var(--havax-cb-transition);
 }
 
-.vkm-pill-toggle input:checked + .vkm-pill-label {
-    background: var(--vkm-primary);
-    border-color: var(--vkm-primary);
+.havax-cb-pill-toggle input:checked + .havax-cb-pill-label {
+    background: var(--havax-cb-primary);
+    border-color: var(--havax-cb-primary);
     color: white;
 }
 
-.vkm-pill-toggle input:disabled + .vkm-pill-label {
+.havax-cb-pill-toggle input:disabled + .havax-cb-pill-label {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-.vkm-required-dot {
+.havax-cb-required-dot {
     width: 6px;
     height: 6px;
     background: currentColor;
@@ -177,39 +177,39 @@
 }
 
 /* Panel Link */
-.vkm-panel-link {
+.havax-cb-panel-link {
     display: inline-flex;
     align-items: center;
     gap: 4px;
     font-size: 13px;
-    color: var(--vkm-primary);
+    color: var(--havax-cb-primary);
     text-decoration: none;
 }
 
-.vkm-panel-link:hover {
+.havax-cb-panel-link:hover {
     text-decoration: underline;
 }
 
 /* Panel Footer */
-.vkm-panel-footer {
+.havax-cb-panel-footer {
     display: flex;
     gap: 8px;
     padding: 12px 20px 16px;
-    border-top: 1px solid var(--vkm-border);
+    border-top: 1px solid var(--havax-cb-border);
 }
 
-.vkm-panel-footer .vkm-btn {
+.havax-cb-panel-footer .havax-cb-btn {
     flex: 1;
     padding: 8px 12px;
     font-size: 13px;
 }
 
 /* Animation for initial show */
-.vkm-cookie-banner.vkm-floating.vkm-visible .vkm-floating-panel {
-    animation: vkm-bounce-in 0.3s ease;
+.havax-cb-cookie-banner.havax-cb-floating.havax-cb-visible .havax-cb-floating-panel {
+    animation: havax-cb-bounce-in 0.3s ease;
 }
 
-@keyframes vkm-bounce-in {
+@keyframes havax-cb-bounce-in {
     0% {
         opacity: 0;
         transform: translateY(20px) scale(0.9);
@@ -225,7 +225,7 @@
 
 /* Responsive */
 @media (max-width: 360px) {
-    .vkm-floating-panel {
+    .havax-cb-floating-panel {
         width: calc(100vw - 32px);
         left: 16px !important;
         right: 16px !important;

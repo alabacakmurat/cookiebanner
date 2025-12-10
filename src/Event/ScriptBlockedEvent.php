@@ -2,69 +2,69 @@
 
 declare(strict_types=1);
 
-namespace VkmToolkit\CookieBanner\Event;
+namespace Havax\CookieBanner\Event;
 
 class ScriptBlockedEvent extends AbstractEvent
 {
-    public const NAME = 'script.blocked';
+	public const NAME = 'script.blocked';
 
-    private string $scriptId;
-    private string $category;
-    private string $provider;
-    private ?string $scriptContent;
-    private array $metadata;
+	private string $scriptId;
+	private string $category;
+	private string $provider;
+	private ?string $scriptContent;
+	private array $metadata;
 
-    public function __construct(
-        string $scriptId,
-        string $category,
-        string $provider = '',
-        ?string $scriptContent = null,
-        array $metadata = []
-    ) {
-        $this->scriptId = $scriptId;
-        $this->category = $category;
-        $this->provider = $provider;
-        $this->scriptContent = $scriptContent;
-        $this->metadata = $metadata;
-    }
+	public function __construct(
+		string $scriptId,
+		string $category,
+		string $provider = '',
+		?string $scriptContent = null,
+		array $metadata = []
+	) {
+		$this->scriptId = $scriptId;
+		$this->category = $category;
+		$this->provider = $provider;
+		$this->scriptContent = $scriptContent;
+		$this->metadata = $metadata;
+	}
 
-    public function getName(): string
-    {
-        return self::NAME;
-    }
+	public function getName(): string
+	{
+		return self::NAME;
+	}
 
-    public function getScriptId(): string
-    {
-        return $this->scriptId;
-    }
+	public function getScriptId(): string
+	{
+		return $this->scriptId;
+	}
 
-    public function getCategory(): string
-    {
-        return $this->category;
-    }
+	public function getCategory(): string
+	{
+		return $this->category;
+	}
 
-    public function getProvider(): string
-    {
-        return $this->provider;
-    }
+	public function getProvider(): string
+	{
+		return $this->provider;
+	}
 
-    public function getScriptContent(): ?string
-    {
-        return $this->scriptContent;
-    }
+	public function getScriptContent(): ?string
+	{
+		return $this->scriptContent;
+	}
 
-    public function getMetadata(): array
-    {
-        return $this->metadata;
-    }
+	public function getMetadata(): array
+	{
+		return $this->metadata;
+	}
 
-    public function toArray(): array
-    {
-        return [
-            'script_id' => $this->scriptId,
-            'category' => $this->category,
-            'provider' => $this->provider,
-            'metadata' => $this->metadata,
-        ];
-    }
+	public function toArray(): array
+	{
+		return [
+			'script_id' => $this->scriptId,
+			'category' => $this->category,
+			'provider' => $this->provider,
+			'metadata' => $this->metadata,
+		];
+	}
 }

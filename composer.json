@@ -1,13 +1,12 @@
 {
-    "name": "vkmtoolkit/cookiebanner",
+    "name": "havax/cookiebanner",
     "description": "A flexible, customizable GDPR-compliant cookie consent banner with automatic script blocking, multiple templates, and comprehensive event hooks.",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "VKM Admins",
-            "email": "info@vkmadmins.com",
-            "homepage": "https://github.com/vkmadmins"
+            "name": "Murat Alabacak",
+            "homepage": "https://github.com/alabacakmurat"
         }
     ],
     "keywords": [
@@ -20,10 +19,10 @@
         "cookie-banner",
         "gdpr-compliance"
     ],
-    "homepage": "https://github.com/vkmadmins/cookiebanner",
+    "homepage": "https://github.com/alabacakmurat/cookiebanner",
     "support": {
-        "issues": "https://github.com/vkmadmins/cookiebanner/issues",
-        "source": "https://github.com/vkmadmins/cookiebanner"
+        "issues": "https://github.com/alabacakmurat/cookiebanner/issues",
+        "source": "https://github.com/alabacakmurat/cookiebanner"
     },
     "require": {
         "php": "^8.0"
@@ -34,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VkmToolkit\\CookieBanner\\": "src/"
+            "Havax\\CookieBanner\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VkmToolkit\\CookieBanner\\Tests\\": "tests/"
+            "Havax\\CookieBanner\\Tests\\": "tests/"
         }
     },
     "scripts": {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace VkmToolkit\CookieBanner\Event;
+namespace Havax\CookieBanner\Event;
 
 interface EventInterface
 {
-    public function getName(): string;
-    public function stopPropagation(): void;
-    public function isPropagationStopped(): bool;
+	public function getName(): string;
+	public function stopPropagation(): void;
+	public function isPropagationStopped(): bool;
 }

@@ -1,60 +1,60 @@
 /**
- * VKM Cookie Banner - Modern Template Styles
+ * Havax Cookie Banner - Modern Template Styles
  * Card-style banner with shadow
  * Note: base.css is automatically included by TemplateManager
  */
 
 /* Modern Banner */
-.vkm-cookie-banner.vkm-modern {
+.havax-cb-cookie-banner.havax-cb-modern {
     padding: 16px;
 }
 
 /* Positions */
-.vkm-cookie-banner.vkm-modern.vkm-position-bottom-left {
+.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-bottom-left {
     bottom: 0;
     left: 0;
 }
 
-.vkm-cookie-banner.vkm-modern.vkm-position-bottom-right {
+.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-bottom-right {
     bottom: 0;
     right: 0;
 }
 
-.vkm-cookie-banner.vkm-modern.vkm-position-top-left {
+.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-top-left {
     top: 0;
     left: 0;
 }
 
-.vkm-cookie-banner.vkm-modern.vkm-position-top-right {
+.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-top-right {
     top: 0;
     right: 0;
 }
 
-.vkm-cookie-banner.vkm-modern.vkm-position-center {
+.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-center {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.9);
 }
 
-.vkm-cookie-banner.vkm-modern.vkm-position-center.vkm-visible {
+.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-center.havax-cb-visible {
     transform: translate(-50%, -50%) scale(1);
 }
 
 /* Card */
-.vkm-modern .vkm-cookie-card {
-    background: var(--vkm-background);
-    border-radius: var(--vkm-radius-lg);
-    box-shadow: var(--vkm-shadow-lg);
+.havax-cb-modern .havax-cb-cookie-card {
+    background: var(--havax-cb-background);
+    border-radius: var(--havax-cb-radius-lg);
+    box-shadow: var(--havax-cb-shadow-lg);
     padding: 24px;
     max-width: 420px;
-    animation: vkm-slide-up 0.3s ease;
+    animation: havax-cb-slide-up 0.3s ease;
 }
 
 /* Icon */
-.vkm-modern .vkm-cookie-icon {
+.havax-cb-modern .havax-cb-cookie-icon {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, var(--vkm-primary), #3b82f6);
+    background: linear-gradient(135deg, var(--havax-cb-primary), #3b82f6);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -62,83 +62,83 @@
     margin-bottom: 16px;
 }
 
-.vkm-modern .vkm-cookie-icon svg {
+.havax-cb-modern .havax-cb-cookie-icon svg {
     color: white;
 }
 
 /* Content */
-.vkm-modern .vkm-cookie-content {
+.havax-cb-modern .havax-cb-cookie-content {
     margin-bottom: 20px;
 }
 
-.vkm-modern .vkm-cookie-title {
+.havax-cb-modern .havax-cb-cookie-title {
     font-size: 18px;
     font-weight: 600;
     margin: 0 0 12px 0;
 }
 
-.vkm-modern .vkm-cookie-description {
+.havax-cb-modern .havax-cb-cookie-description {
     font-size: 14px;
-    color: var(--vkm-text-muted);
+    color: var(--havax-cb-text-muted);
     margin: 0 0 12px 0;
     line-height: 1.6;
 }
 
-.vkm-modern .vkm-cookie-links {
+.havax-cb-modern .havax-cb-cookie-links {
     font-size: 13px;
     margin: 0;
 }
 
-.vkm-modern .vkm-cookie-links a {
+.havax-cb-modern .havax-cb-cookie-links a {
     margin-right: 16px;
 }
 
 /* Actions */
-.vkm-modern .vkm-cookie-actions {
+.havax-cb-modern .havax-cb-cookie-actions {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.vkm-modern .vkm-cookie-actions .vkm-btn {
+.havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn {
     width: 100%;
 }
 
 /* First row: Customize + Reject */
-.vkm-modern .vkm-cookie-actions .vkm-btn-preferences,
-.vkm-modern .vkm-cookie-actions .vkm-btn-reject {
+.havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-preferences,
+.havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-reject {
     order: 2;
 }
 
 /* Accept button prominent */
-.vkm-modern .vkm-cookie-actions .vkm-btn-accept {
+.havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-accept {
     order: 1;
 }
 
 /* Side by side buttons */
 @media (min-width: 400px) {
-    .vkm-modern .vkm-cookie-actions {
+    .havax-cb-modern .havax-cb-cookie-actions {
         flex-direction: row;
         flex-wrap: wrap;
     }
 
-    .vkm-modern .vkm-cookie-actions .vkm-btn-accept {
+    .havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-accept {
         flex: 1 1 100%;
     }
 
-    .vkm-modern .vkm-cookie-actions .vkm-btn-preferences,
-    .vkm-modern .vkm-cookie-actions .vkm-btn-reject {
+    .havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-preferences,
+    .havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-reject {
         flex: 1;
     }
 }
 
 /* Responsive */
 @media (max-width: 480px) {
-    .vkm-cookie-banner.vkm-modern {
+    .havax-cb-cookie-banner.havax-cb-modern {
         padding: 12px;
     }
 
-    .vkm-modern .vkm-cookie-card {
+    .havax-cb-modern .havax-cb-cookie-card {
         max-width: none;
         padding: 20px;
     }

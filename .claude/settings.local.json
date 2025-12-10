@@ -5,7 +5,12 @@
       "Bash(php:*)",
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: GDPR Cookie Banner library\n\nPHP library for GDPR-compliant cookie consent management with:\n- Multiple template styles (classic, modern, floating, minimal, blocking)\n- Script blocking capabilities\n- Multi-language support\n- Event system\n- API endpoints for consent management\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote set-url:*)"
     ]
   }
 }

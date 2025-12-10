@@ -1,28 +1,28 @@
-# VKM Cookie Banner
+# Havax Cookie Banner
 
 A flexible, customizable, and GDPR-compliant cookie consent banner for PHP applications.
 
 ## Features
 
-- **Multiple Templates**: Classic, Modern, Minimal, and Floating designs
-- **Automatic Script Blocking**: Block third-party scripts until consent is given
-- **Event Hooks**: Comprehensive event system for logging and integration
-- **Multi-language Support**: 10+ languages included, easily extendable
-- **GDPR Compliant**: Consent proof, anonymized IP logging, withdrawal support
-- **Customizable**: Categories, colors, translations, and more
-- **No Dependencies**: Vanilla JavaScript, works with any PHP project
+-   **Multiple Templates**: Classic, Modern, Minimal, and Floating designs
+-   **Automatic Script Blocking**: Block third-party scripts until consent is given
+-   **Event Hooks**: Comprehensive event system for logging and integration
+-   **Multi-language Support**: 10+ languages included, easily extendable
+-   **GDPR Compliant**: Consent proof, anonymized IP logging, withdrawal support
+-   **Customizable**: Categories, colors, translations, and more
+-   **No Dependencies**: Vanilla JavaScript, works with any PHP project
 
 ## Installation
 
 ```bash
-composer require vkmtoolkit/cookiebanner
+composer require havax/cookiebanner
 ```
 
 ## Quick Start
 
 ```php
 <?php
-use VkmToolkit\CookieBanner\CookieBanner;
+use Havax\CookieBanner\CookieBanner;
 
 $banner = new CookieBanner([
     'template' => 'modern',
@@ -53,7 +53,7 @@ $banner = new CookieBanner([
     'cookiePolicyUrl' => '/cookies',
 
     // Cookie settings
-    'cookieName' => 'vkm_cookie_consent',
+    'cookieName' => 'havax_cb_consent',
     'cookieExpiry' => 365,               // days
     'cookiePath' => '/',
     'cookieDomain' => '',
@@ -67,39 +67,47 @@ $banner = new CookieBanner([
 
     // Assets
     'inlineAssets' => false,             // Inline CSS/JS
-    'assetsUrl' => '/vendor/vkmtoolkit/cookiebanner/assets',
+    'assetsUrl' => '/vendor/havax/cookiebanner/assets',
 ]);
 ```
 
 ## Templates
 
 ### Classic
+
 Full-width banner at top or bottom of the page.
-- Positions: `top`, `bottom`
+
+-   Positions: `top`, `bottom`
 
 ### Modern
+
 Card-style banner with shadow and rounded corners.
-- Positions: `bottom-left`, `bottom-right`, `top-left`, `top-right`, `center`
+
+-   Positions: `bottom-left`, `bottom-right`, `top-left`, `top-right`, `center`
 
 ### Minimal
+
 Small popup with essential options only.
-- Positions: `bottom-left`, `bottom-right`, `top-left`, `top-right`
+
+-   Positions: `bottom-left`, `bottom-right`, `top-left`, `top-right`
 
 ### Floating
+
 Floating button that expands to show cookie options.
-- Positions: `bottom-left`, `bottom-right`
+
+-   Positions: `bottom-left`, `bottom-right`
 
 ## Cookie Categories
 
 Default categories:
 
-| Category | Required | Description |
-|----------|----------|-------------|
-| `necessary` | Yes | Essential cookies for site functionality |
-| `functional` | No | Enhanced functionality and personalization |
-| `analytics` | No | Traffic analysis (Google Analytics, etc.) |
-| `marketing` | No | Marketing and email campaigns |
-| `advertising` | No | Personalized advertisements |
+| Category      | Required | Description                                |
+| ------------- | -------- | ------------------------------------------ |
+| `necessary`   | Yes      | Essential cookies for site functionality   |
+| `functional`  | No       | Enhanced functionality and personalization |
+| `analytics`   | No       | Traffic analysis (Google Analytics, etc.)  |
+| `marketing`   | No       | Marketing and email campaigns              |
+| `advertising` | No       | Personalized advertisements                |
 
 ### Custom Categories
 
@@ -118,7 +126,7 @@ $banner->addCategory('social', [
 The most powerful feature for GDPR compliance - log every consent action.
 
 ```php
-use VkmToolkit\CookieBanner\Event\ConsentEvent;
+use Havax\CookieBanner\Event\ConsentEvent;
 
 // When user gives consent for the first time
 $banner->on(ConsentEvent::TYPE_GIVEN, function(ConsentEvent $event) {
@@ -149,27 +157,29 @@ $banner->on(ConsentEvent::TYPE_WITHDRAWN, function(ConsentEvent $event) {
 ### Available Events
 
 **PHP Events:**
-- `consent.given` - First time consent
-- `consent.updated` - Preferences changed
-- `consent.withdrawn` - Consent withdrawn
-- `script.loaded` - Script activated
-- `script.blocked` - Script blocked
-- `banner.before_render` - Before HTML render
-- `banner.after_render` - After HTML render
+
+-   `consent.given` - First time consent
+-   `consent.updated` - Preferences changed
+-   `consent.withdrawn` - Consent withdrawn
+-   `script.loaded` - Script activated
+-   `script.blocked` - Script blocked
+-   `banner.before_render` - Before HTML render
+-   `banner.after_render` - After HTML render
 
 **JavaScript Events:**
-- `vkm:init` - Banner initialized
-- `vkm:consent:given` - Consent given
-- `vkm:consent:updated` - Consent updated
-- `vkm:consent:withdrawn` - Consent withdrawn
-- `vkm:banner:shown` - Banner displayed
-- `vkm:banner:hidden` - Banner hidden
-- `vkm:preferences:opened` - Preferences modal opened
-- `vkm:preferences:closed` - Preferences modal closed
-- `vkm:script:loaded` - Script loaded
-- `vkm:script:blocked` - Script blocked
-- `vkm:category:enabled` - Category enabled
-- `vkm:category:disabled` - Category disabled
+
+-   `havax-cb:init` - Banner initialized
+-   `havax-cb:consent:given` - Consent given
+-   `havax-cb:consent:updated` - Consent updated
+-   `havax-cb:consent:withdrawn` - Consent withdrawn
+-   `havax-cb:banner:shown` - Banner displayed
+-   `havax-cb:banner:hidden` - Banner hidden
+-   `havax-cb:preferences:opened` - Preferences modal opened
+-   `havax-cb:preferences:closed` - Preferences modal closed
+-   `havax-cb:script:loaded` - Script loaded
+-   `havax-cb:script:blocked` - Script blocked
+-   `havax-cb:category:enabled` - Category enabled
+-   `havax-cb:category:disabled` - Category disabled
 
 ## Script Blocking
 
@@ -195,10 +205,10 @@ echo $banner->renderAllScripts();
 
 ### JavaScript-based Blocking
 
-Add `type="text/plain"` and `data-vkm-category` to any script:
+Add `type="text/plain"` and `data-havax-cb-category` to any script:
 
 ```html
-<script type="text/plain" data-vkm-category="analytics">
+<script type="text/plain" data-havax-cb-category="analytics">
     // This won't execute until analytics consent is given
     gtag('js', new Date());
 </script>
@@ -208,54 +218,55 @@ Add `type="text/plain"` and `data-vkm-category` to any script:
 
 The following third-party scripts are automatically detected and blocked:
 
-- **Analytics**: Google Analytics, Google Tag Manager, Matomo, Hotjar
-- **Advertising**: Google Ads, Facebook Pixel, Twitter Pixel, TikTok Pixel
-- **Marketing**: LinkedIn Insight, HubSpot
-- **Functional**: Intercom, Crisp, YouTube, Vimeo
+-   **Analytics**: Google Analytics, Google Tag Manager, Matomo, Hotjar
+-   **Advertising**: Google Ads, Facebook Pixel, Twitter Pixel, TikTok Pixel
+-   **Marketing**: LinkedIn Insight, HubSpot
+-   **Functional**: Intercom, Crisp, YouTube, Vimeo
 
 ## JavaScript API
 
 ```javascript
 // Check consent
-vkmCookieBanner.hasConsent();                    // Boolean
-vkmCookieBanner.hasConsentFor('analytics');      // Boolean
-vkmCookieBanner.getAcceptedCategories();         // Array
-vkmCookieBanner.getRejectedCategories();         // Array
+havaxCbInstance.hasConsent(); // Boolean
+havaxCbInstance.hasConsentFor("analytics"); // Boolean
+havaxCbInstance.getAcceptedCategories(); // Array
+havaxCbInstance.getRejectedCategories(); // Array
 
 // Control banner
-vkmCookieBanner.showBanner();
-vkmCookieBanner.hideBanner();
-vkmCookieBanner.showPreferences();
-vkmCookieBanner.closePreferences();
+havaxCbInstance.showBanner();
+havaxCbInstance.hideBanner();
+havaxCbInstance.showPreferences();
+havaxCbInstance.closePreferences();
 
 // Consent actions
-vkmCookieBanner.acceptAll();
-vkmCookieBanner.rejectAll();
-vkmCookieBanner.withdrawConsent();
+havaxCbInstance.acceptAll();
+havaxCbInstance.rejectAll();
+havaxCbInstance.withdrawConsent();
 
 // Get consent data
-vkmCookieBanner.getConsentData();
-vkmCookieBanner.getConsentProof();
+havaxCbInstance.getConsentData();
+havaxCbInstance.getConsentProof();
 
 // Event listeners
-vkmCookieBanner.on('consent.given', (data) => {
-    console.log('Consent given:', data);
+havaxCbInstance.on("consent.given", (data) => {
+    console.log("Consent given:", data);
 });
 ```
 
 ## Multi-language Support
 
 ### Built-in Languages
-- English (en)
-- Turkish (tr)
-- German (de)
-- French (fr)
-- Spanish (es)
-- Dutch (nl)
-- Italian (it)
-- Portuguese (pt)
-- Polish (pl)
-- Russian (ru)
+
+-   English (en)
+-   Turkish (tr)
+-   German (de)
+-   French (fr)
+-   Spanish (es)
+-   Dutch (nl)
+-   Italian (it)
+-   Portuguese (pt)
+-   Polish (pl)
+-   Russian (ru)
 
 ### Add Custom Translations
 
@@ -285,7 +296,7 @@ $banner->registerLanguage('ja', [
 Create your own template:
 
 ```php
-use VkmToolkit\CookieBanner\Template\AbstractTemplate;
+use Havax\CookieBanner\Template\AbstractTemplate;
 
 class MyCustomTemplate extends AbstractTemplate
 {
@@ -332,37 +343,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api'])) {
 
 ```javascript
 // Get current consent
-fetch('/consent-api?api', {
-    method: 'POST',
-    body: JSON.stringify({ action: 'get_consent' })
+fetch("/consent-api?api", {
+    method: "POST",
+    body: JSON.stringify({ action: "get_consent" }),
 });
 
 // Give consent
-fetch('/consent-api?api', {
-    method: 'POST',
+fetch("/consent-api?api", {
+    method: "POST",
     body: JSON.stringify({
-        action: 'give_consent',
-        categories: ['necessary', 'analytics'],
-        method: 'preferences'
-    })
+        action: "give_consent",
+        categories: ["necessary", "analytics"],
+        method: "preferences",
+    }),
 });
 
 // Accept all
-fetch('/consent-api?api', {
-    method: 'POST',
-    body: JSON.stringify({ action: 'accept_all' })
+fetch("/consent-api?api", {
+    method: "POST",
+    body: JSON.stringify({ action: "accept_all" }),
 });
 
 // Reject all
-fetch('/consent-api?api', {
-    method: 'POST',
-    body: JSON.stringify({ action: 'reject_all' })
+fetch("/consent-api?api", {
+    method: "POST",
+    body: JSON.stringify({ action: "reject_all" }),
 });
 
 // Withdraw consent
-fetch('/consent-api?api', {
-    method: 'POST',
-    body: JSON.stringify({ action: 'withdraw_consent' })
+fetch("/consent-api?api", {
+    method: "POST",
+    body: JSON.stringify({ action: "withdraw_consent" }),
 });
 ```
 
@@ -372,13 +383,13 @@ Override CSS variables:
 
 ```css
 :root {
-    --vkm-primary: #2563eb;
-    --vkm-primary-hover: #1d4ed8;
-    --vkm-background: #ffffff;
-    --vkm-text: #1e293b;
-    --vkm-border: #e2e8f0;
-    --vkm-radius: 8px;
-    --vkm-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --havax-cb-primary: #2563eb;
+    --havax-cb-primary-hover: #1d4ed8;
+    --havax-cb-background: #ffffff;
+    --havax-cb-text: #1e293b;
+    --havax-cb-border: #e2e8f0;
+    --havax-cb-radius: 8px;
+    --havax-cb-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 ```
 
@@ -386,14 +397,14 @@ Override CSS variables:
 
 Check the `examples/` directory:
 
-- `basic.php` - Simple usage
-- `advanced.php` - Event hooks, script blocking
-- `demo.php` - Interactive demo with all features
+-   `basic.php` - Simple usage
+-   `advanced.php` - Event hooks, script blocking
+-   `demo.php` - Interactive demo with all features
 
 ## Requirements
 
-- PHP 8.0+
-- No external dependencies
+-   PHP 8.0+
+-   No external dependencies
 
 ## License
 
@@ -401,4 +412,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Credits
 
-Developed by [VKM Admins](https://github.com/vkmadmins)
+Developed by [Havax](https://github.com/alabacakmurat)

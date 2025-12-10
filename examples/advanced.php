@@ -1,7 +1,7 @@
 <?php
 
 /**
- * VKM Cookie Banner - Advanced Usage Example
+ * Havax Cookie Banner - Advanced Usage Example
  *
  * This example shows advanced features like:
  * - Event hooks for consent logging
@@ -13,10 +13,10 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use VkmToolkit\CookieBanner\CookieBanner;
-use VkmToolkit\CookieBanner\Event\ConsentEvent;
-use VkmToolkit\CookieBanner\Event\ScriptLoadedEvent;
-use VkmToolkit\CookieBanner\Event\ScriptBlockedEvent;
+use Havax\CookieBanner\CookieBanner;
+use Havax\CookieBanner\Event\ConsentEvent;
+use Havax\CookieBanner\Event\ScriptLoadedEvent;
+use Havax\CookieBanner\Event\ScriptBlockedEvent;
 
 // Initialize with advanced options
 $banner = new CookieBanner([
@@ -76,7 +76,8 @@ $banner = new CookieBanner([
 // ============================================================
 
 // Helper function to save log as proper JSON array
-function saveConsentLog(array $logData): void {
+function saveConsentLog(array $logData): void
+{
 	$logFile = __DIR__ . '/consent_log.json';
 
 	// Read existing logs or create empty array
@@ -234,7 +235,7 @@ $consent = $banner->getConsent();
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Advanced Usage - VKM Cookie Banner</title>
+	<title>Advanced Usage - Havax Cookie Banner</title>
 	<?= $banner->renderCss() ?>
 	<style>
 		* {
@@ -437,9 +438,9 @@ $consent = $banner->getConsent();
 			</div>
 
 			<div style="margin-top: 20px;">
-				<button class="btn btn-primary" onclick="vkmCookieBanner.showBanner()">Show Banner</button>
-				<button class="btn btn-secondary" onclick="vkmCookieBanner.showPreferences()">Open Preferences</button>
-				<button class="btn btn-secondary" onclick="vkmCookieBanner.withdrawConsent()">Withdraw Consent</button>
+				<button class="btn btn-primary" onclick="havaxCbInstance.showBanner()">Show Banner</button>
+				<button class="btn btn-secondary" onclick="havaxCbInstance.showPreferences()">Open Preferences</button>
+				<button class="btn btn-secondary" onclick="havaxCbInstance.withdrawConsent()">Withdraw Consent</button>
 			</div>
 		</div>
 
@@ -543,18 +544,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api'])) {
 
 	<script>
 		// Show banner if no consent
-		document.addEventListener('vkm:init', function() {
-			if (!vkmCookieBanner.hasConsent()) {
-				vkmCookieBanner.showBanner();
+		document.addEventListener('havax-cb:init', function() {
+			if (!havaxCbInstance.hasConsent()) {
+				havaxCbInstance.showBanner();
 			}
 		});
 
 		// Reload page on consent change to show updated status
-		document.addEventListener('vkm:consent:given', function() {
+		document.addEventListener('havax-cb:consent:given', function() {
 			setTimeout(() => location.reload(), 500);
 		});
 
-		document.addEventListener('vkm:consent:withdrawn', function() {
+		document.addEventListener('havax-cb:consent:withdrawn', function() {
 			setTimeout(() => location.reload(), 500);
 		});
 	</script>

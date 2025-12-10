@@ -1,48 +1,48 @@
 /**
- * VKM Cookie Banner - Minimal Template Styles
+ * Havax Cookie Banner - Minimal Template Styles
  * Small popup with essential options
  * Note: base.css is automatically included by TemplateManager
  */
 
 /* Minimal Banner */
-.vkm-cookie-banner.vkm-minimal {
+.havax-cb-cookie-banner.havax-cb-minimal {
     padding: 12px;
 }
 
 /* Positions */
-.vkm-cookie-banner.vkm-minimal.vkm-position-bottom-left {
+.havax-cb-cookie-banner.havax-cb-minimal.havax-cb-position-bottom-left {
     bottom: 0;
     left: 0;
 }
 
-.vkm-cookie-banner.vkm-minimal.vkm-position-bottom-right {
+.havax-cb-cookie-banner.havax-cb-minimal.havax-cb-position-bottom-right {
     bottom: 0;
     right: 0;
 }
 
-.vkm-cookie-banner.vkm-minimal.vkm-position-top-left {
+.havax-cb-cookie-banner.havax-cb-minimal.havax-cb-position-top-left {
     top: 0;
     left: 0;
 }
 
-.vkm-cookie-banner.vkm-minimal.vkm-position-top-right {
+.havax-cb-cookie-banner.havax-cb-minimal.havax-cb-position-top-right {
     top: 0;
     right: 0;
 }
 
 /* Popup */
-.vkm-minimal .vkm-cookie-popup {
-    background: var(--vkm-background);
-    border-radius: var(--vkm-radius);
-    box-shadow: var(--vkm-shadow-lg);
+.havax-cb-minimal .havax-cb-cookie-popup {
+    background: var(--havax-cb-background);
+    border-radius: var(--havax-cb-radius);
+    box-shadow: var(--havax-cb-shadow-lg);
     padding: 16px 20px;
     max-width: 320px;
     position: relative;
-    animation: vkm-slide-up 0.2s ease;
+    animation: havax-cb-slide-up 0.2s ease;
 }
 
 /* Close button */
-.vkm-minimal .vkm-popup-close {
+.havax-cb-minimal .havax-cb-popup-close {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -50,87 +50,87 @@
     border: none;
     padding: 4px;
     cursor: pointer;
-    color: var(--vkm-text-muted);
+    color: var(--havax-cb-text-muted);
     border-radius: 4px;
     display: flex;
-    transition: all var(--vkm-transition);
+    transition: all var(--havax-cb-transition);
 }
 
-.vkm-minimal .vkm-popup-close:hover {
-    background: var(--vkm-surface);
-    color: var(--vkm-text);
+.havax-cb-minimal .havax-cb-popup-close:hover {
+    background: var(--havax-cb-surface);
+    color: var(--havax-cb-text);
 }
 
 /* Text */
-.vkm-minimal .vkm-popup-text {
+.havax-cb-minimal .havax-cb-popup-text {
     font-size: 14px;
-    color: var(--vkm-text);
+    color: var(--havax-cb-text);
     margin: 0 0 14px 0;
     padding-right: 20px;
     line-height: 1.5;
 }
 
-.vkm-minimal .vkm-popup-text a {
-    color: var(--vkm-primary);
+.havax-cb-minimal .havax-cb-popup-text a {
+    color: var(--havax-cb-primary);
     text-decoration: none;
 }
 
-.vkm-minimal .vkm-popup-text a:hover {
+.havax-cb-minimal .havax-cb-popup-text a:hover {
     text-decoration: underline;
 }
 
 /* Actions */
-.vkm-minimal .vkm-popup-actions {
+.havax-cb-minimal .havax-cb-popup-actions {
     display: flex;
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.vkm-minimal .vkm-popup-actions .vkm-btn-link {
+.havax-cb-minimal .havax-cb-popup-actions .havax-cb-btn-link {
     margin-right: auto;
 }
 
 /* Preferences compact */
-.vkm-preferences-compact {
+.havax-cb-preferences-compact {
     max-width: 360px;
 }
 
-.vkm-preferences-compact .vkm-preferences-header {
+.havax-cb-preferences-compact .havax-cb-preferences-header {
     padding: 16px 20px;
 }
 
-.vkm-preferences-compact .vkm-preferences-header h3 {
+.havax-cb-preferences-compact .havax-cb-preferences-header h3 {
     font-size: 16px;
 }
 
-.vkm-preferences-compact .vkm-preferences-body {
+.havax-cb-preferences-compact .havax-cb-preferences-body {
     padding: 16px 20px;
 }
 
-.vkm-preferences-compact .vkm-preferences-footer {
+.havax-cb-preferences-compact .havax-cb-preferences-footer {
     padding: 12px 20px;
     justify-content: center;
 }
 
 /* Responsive */
 @media (max-width: 360px) {
-    .vkm-minimal .vkm-cookie-popup {
+    .havax-cb-minimal .havax-cb-cookie-popup {
         max-width: none;
     }
 
-    .vkm-minimal .vkm-popup-actions {
+    .havax-cb-minimal .havax-cb-popup-actions {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .vkm-minimal .vkm-popup-actions .vkm-btn-link {
+    .havax-cb-minimal .havax-cb-popup-actions .havax-cb-btn-link {
         margin-right: 0;
         margin-bottom: 8px;
         text-align: center;
     }
 
-    .vkm-minimal .vkm-popup-actions .vkm-btn {
+    .havax-cb-minimal .havax-cb-popup-actions .havax-cb-btn {
         width: 100%;
     }
 }
