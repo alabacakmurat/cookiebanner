@@ -1,0 +1,145 @@
+/**
+ * VKM Cookie Banner - Modern Template Styles
+ * Card-style banner with shadow
+ * Note: base.css is automatically included by TemplateManager
+ */
+
+/* Modern Banner */
+.vkm-cookie-banner.vkm-modern {
+    padding: 16px;
+}
+
+/* Positions */
+.vkm-cookie-banner.vkm-modern.vkm-position-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.vkm-cookie-banner.vkm-modern.vkm-position-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+.vkm-cookie-banner.vkm-modern.vkm-position-top-left {
+    top: 0;
+    left: 0;
+}
+
+.vkm-cookie-banner.vkm-modern.vkm-position-top-right {
+    top: 0;
+    right: 0;
+}
+
+.vkm-cookie-banner.vkm-modern.vkm-position-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.vkm-cookie-banner.vkm-modern.vkm-position-center.vkm-visible {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Card */
+.vkm-modern .vkm-cookie-card {
+    background: var(--vkm-background);
+    border-radius: var(--vkm-radius-lg);
+    box-shadow: var(--vkm-shadow-lg);
+    padding: 24px;
+    max-width: 420px;
+    animation: vkm-slide-up 0.3s ease;
+}
+
+/* Icon */
+.vkm-modern .vkm-cookie-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--vkm-primary), #3b82f6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.vkm-modern .vkm-cookie-icon svg {
+    color: white;
+}
+
+/* Content */
+.vkm-modern .vkm-cookie-content {
+    margin-bottom: 20px;
+}
+
+.vkm-modern .vkm-cookie-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+}
+
+.vkm-modern .vkm-cookie-description {
+    font-size: 14px;
+    color: var(--vkm-text-muted);
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+}
+
+.vkm-modern .vkm-cookie-links {
+    font-size: 13px;
+    margin: 0;
+}
+
+.vkm-modern .vkm-cookie-links a {
+    margin-right: 16px;
+}
+
+/* Actions */
+.vkm-modern .vkm-cookie-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vkm-modern .vkm-cookie-actions .vkm-btn {
+    width: 100%;
+}
+
+/* First row: Customize + Reject */
+.vkm-modern .vkm-cookie-actions .vkm-btn-preferences,
+.vkm-modern .vkm-cookie-actions .vkm-btn-reject {
+    order: 2;
+}
+
+/* Accept button prominent */
+.vkm-modern .vkm-cookie-actions .vkm-btn-accept {
+    order: 1;
+}
+
+/* Side by side buttons */
+@media (min-width: 400px) {
+    .vkm-modern .vkm-cookie-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .vkm-modern .vkm-cookie-actions .vkm-btn-accept {
+        flex: 1 1 100%;
+    }
+
+    .vkm-modern .vkm-cookie-actions .vkm-btn-preferences,
+    .vkm-modern .vkm-cookie-actions .vkm-btn-reject {
+        flex: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .vkm-cookie-banner.vkm-modern {
+        padding: 12px;
+    }
+
+    .vkm-modern .vkm-cookie-card {
+        max-width: none;
+        padding: 20px;
+    }
+}

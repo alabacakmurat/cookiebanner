@@ -1,0 +1,233 @@
+/**
+ * VKM Cookie Banner - Floating Template Styles
+ * Floating button that expands to show cookie options
+ * Note: base.css is automatically included by TemplateManager
+ */
+
+/* Floating Banner */
+.vkm-cookie-banner.vkm-floating {
+    padding: 16px;
+}
+
+/* Positions */
+.vkm-cookie-banner.vkm-floating.vkm-position-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.vkm-cookie-banner.vkm-floating.vkm-position-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+/* Floating Button */
+.vkm-floating-button {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--vkm-primary), #3b82f6);
+    border: none;
+    box-shadow: var(--vkm-shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--vkm-transition);
+    position: relative;
+}
+
+.vkm-floating-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 20px -5px rgba(37, 99, 235, 0.4);
+}
+
+.vkm-floating-button svg {
+    color: white;
+    transition: all var(--vkm-transition);
+}
+
+.vkm-floating-button .vkm-icon-cookie {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.vkm-floating-button .vkm-icon-close {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+}
+
+.vkm-floating-button.vkm-active .vkm-icon-cookie {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg);
+}
+
+.vkm-floating-button.vkm-active .vkm-icon-close {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Floating Panel */
+.vkm-floating-panel {
+    position: absolute;
+    bottom: 72px;
+    background: var(--vkm-background);
+    border-radius: var(--vkm-radius-lg);
+    box-shadow: var(--vkm-shadow-lg);
+    width: 320px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.95);
+    transition: all 0.25s ease;
+    transform-origin: bottom;
+}
+
+.vkm-position-bottom-left .vkm-floating-panel {
+    left: 0;
+    transform-origin: bottom left;
+}
+
+.vkm-position-bottom-right .vkm-floating-panel {
+    right: 0;
+    transform-origin: bottom right;
+}
+
+.vkm-floating-panel.vkm-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Panel Header */
+.vkm-panel-header {
+    padding: 16px 20px 12px;
+}
+
+.vkm-panel-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Panel Body */
+.vkm-panel-body {
+    padding: 0 20px 16px;
+}
+
+.vkm-panel-description {
+    font-size: 13px;
+    color: var(--vkm-text-muted);
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+/* Categories List */
+.vkm-categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.vkm-category-item {
+    flex: 0 0 auto;
+}
+
+/* Pill Toggle */
+.vkm-pill-toggle {
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.vkm-pill-toggle input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.vkm-pill-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    background: var(--vkm-surface);
+    border: 1px solid var(--vkm-border);
+    border-radius: 20px;
+    transition: all var(--vkm-transition);
+}
+
+.vkm-pill-toggle input:checked + .vkm-pill-label {
+    background: var(--vkm-primary);
+    border-color: var(--vkm-primary);
+    color: white;
+}
+
+.vkm-pill-toggle input:disabled + .vkm-pill-label {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.vkm-required-dot {
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+/* Panel Link */
+.vkm-panel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--vkm-primary);
+    text-decoration: none;
+}
+
+.vkm-panel-link:hover {
+    text-decoration: underline;
+}
+
+/* Panel Footer */
+.vkm-panel-footer {
+    display: flex;
+    gap: 8px;
+    padding: 12px 20px 16px;
+    border-top: 1px solid var(--vkm-border);
+}
+
+.vkm-panel-footer .vkm-btn {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+/* Animation for initial show */
+.vkm-cookie-banner.vkm-floating.vkm-visible .vkm-floating-panel {
+    animation: vkm-bounce-in 0.3s ease;
+}
+
+@keyframes vkm-bounce-in {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 360px) {
+    .vkm-floating-panel {
+        width: calc(100vw - 32px);
+        left: 16px !important;
+        right: 16px !important;
+    }
+}

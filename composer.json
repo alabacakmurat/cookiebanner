@@ -1,0 +1,59 @@
+{
+    "name": "vkmtoolkit/cookiebanner",
+    "description": "A flexible, customizable GDPR-compliant cookie consent banner with automatic script blocking, multiple templates, and comprehensive event hooks.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "VKM Admins",
+            "email": "info@vkmadmins.com",
+            "homepage": "https://github.com/vkmadmins"
+        }
+    ],
+    "keywords": [
+        "gdpr",
+        "cookie",
+        "consent",
+        "banner",
+        "privacy",
+        "cookie-consent",
+        "cookie-banner",
+        "gdpr-compliance"
+    ],
+    "homepage": "https://github.com/vkmadmins/cookiebanner",
+    "support": {
+        "issues": "https://github.com/vkmadmins/cookiebanner/issues",
+        "source": "https://github.com/vkmadmins/cookiebanner"
+    },
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5|^10.0",
+        "phpstan/phpstan": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "VkmToolkit\\CookieBanner\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VkmToolkit\\CookieBanner\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse src --level=8"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

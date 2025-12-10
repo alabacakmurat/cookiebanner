@@ -1,0 +1,47 @@
+[
+    {
+        "event": "consent_updated",
+        "consent_id": "d4928132e1ddd0bad209d7fa61b6dc5506f3d1575cdd010dd4dba3ec64f76499",
+        "user_identifier": "556440ac6dbc650846cb4a4efa3866d90b4bc24af556531930187d49cebd70e9",
+        "timestamp": "2025-12-10 15:19:49",
+        "accepted": [
+            "necessary",
+            "functional",
+            "analytics",
+            "marketing",
+            "advertising"
+        ],
+        "rejected": [],
+        "previous_consent_id": "1252911519b08787715",
+        "previous_accepted": [
+            "necessary",
+            "functional",
+            "analytics",
+            "marketing",
+            "advertising"
+        ]
+    },
+    {
+        "event": "consent_updated",
+        "consent_id": "325c45b45f3744db291cfc2d29e7b5cda97c4201062d579819e61e50d3d9d50d",
+        "user_identifier": "556440ac6dbc650846cb4a4efa3866d90b4bc24af556531930187d49cebd70e9",
+        "timestamp": "2025-12-10 15:19:55",
+        "accepted": [
+            "advertising",
+            "necessary"
+        ],
+        "rejected": [
+            "functional",
+            "analytics",
+            "marketing"
+        ],
+        "previous_consent_id": "7abcfd2919b08d8de05",
+        "previous_accepted": [
+            "necessary",
+            "functional",
+            "analytics",
+            "marketing",
+            "advertising"
+        ]
+    }
+]

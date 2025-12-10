@@ -1,0 +1,136 @@
+/**
+ * VKM Cookie Banner - Minimal Template Styles
+ * Small popup with essential options
+ * Note: base.css is automatically included by TemplateManager
+ */
+
+/* Minimal Banner */
+.vkm-cookie-banner.vkm-minimal {
+    padding: 12px;
+}
+
+/* Positions */
+.vkm-cookie-banner.vkm-minimal.vkm-position-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.vkm-cookie-banner.vkm-minimal.vkm-position-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+.vkm-cookie-banner.vkm-minimal.vkm-position-top-left {
+    top: 0;
+    left: 0;
+}
+
+.vkm-cookie-banner.vkm-minimal.vkm-position-top-right {
+    top: 0;
+    right: 0;
+}
+
+/* Popup */
+.vkm-minimal .vkm-cookie-popup {
+    background: var(--vkm-background);
+    border-radius: var(--vkm-radius);
+    box-shadow: var(--vkm-shadow-lg);
+    padding: 16px 20px;
+    max-width: 320px;
+    position: relative;
+    animation: vkm-slide-up 0.2s ease;
+}
+
+/* Close button */
+.vkm-minimal .vkm-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--vkm-text-muted);
+    border-radius: 4px;
+    display: flex;
+    transition: all var(--vkm-transition);
+}
+
+.vkm-minimal .vkm-popup-close:hover {
+    background: var(--vkm-surface);
+    color: var(--vkm-text);
+}
+
+/* Text */
+.vkm-minimal .vkm-popup-text {
+    font-size: 14px;
+    color: var(--vkm-text);
+    margin: 0 0 14px 0;
+    padding-right: 20px;
+    line-height: 1.5;
+}
+
+.vkm-minimal .vkm-popup-text a {
+    color: var(--vkm-primary);
+    text-decoration: none;
+}
+
+.vkm-minimal .vkm-popup-text a:hover {
+    text-decoration: underline;
+}
+
+/* Actions */
+.vkm-minimal .vkm-popup-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.vkm-minimal .vkm-popup-actions .vkm-btn-link {
+    margin-right: auto;
+}
+
+/* Preferences compact */
+.vkm-preferences-compact {
+    max-width: 360px;
+}
+
+.vkm-preferences-compact .vkm-preferences-header {
+    padding: 16px 20px;
+}
+
+.vkm-preferences-compact .vkm-preferences-header h3 {
+    font-size: 16px;
+}
+
+.vkm-preferences-compact .vkm-preferences-body {
+    padding: 16px 20px;
+}
+
+.vkm-preferences-compact .vkm-preferences-footer {
+    padding: 12px 20px;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 360px) {
+    .vkm-minimal .vkm-cookie-popup {
+        max-width: none;
+    }
+
+    .vkm-minimal .vkm-popup-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .vkm-minimal .vkm-popup-actions .vkm-btn-link {
+        margin-right: 0;
+        margin-bottom: 8px;
+        text-align: center;
+    }
+
+    .vkm-minimal .vkm-popup-actions .vkm-btn {
+        width: 100%;
+    }
+}

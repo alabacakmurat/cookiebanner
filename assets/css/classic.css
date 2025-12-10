@@ -1,0 +1,110 @@
+/**
+ * VKM Cookie Banner - Classic Template Styles
+ * Full-width banner at top or bottom
+ * Note: base.css is automatically included by TemplateManager
+ */
+
+/* Classic Banner */
+.vkm-cookie-banner.vkm-classic {
+    left: 0;
+    right: 0;
+    background: var(--vkm-background);
+    box-shadow: var(--vkm-shadow-lg);
+}
+
+.vkm-cookie-banner.vkm-classic.vkm-position-top {
+    top: 0;
+    transform: translateY(-100%);
+}
+
+.vkm-cookie-banner.vkm-classic.vkm-position-top.vkm-visible {
+    transform: translateY(0);
+}
+
+.vkm-cookie-banner.vkm-classic.vkm-position-bottom {
+    bottom: 0;
+    transform: translateY(100%);
+}
+
+.vkm-cookie-banner.vkm-classic.vkm-position-bottom.vkm-visible {
+    transform: translateY(0);
+}
+
+/* Container */
+.vkm-classic .vkm-cookie-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 24px;
+}
+
+/* Content */
+.vkm-classic .vkm-cookie-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.vkm-classic .vkm-cookie-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.vkm-classic .vkm-cookie-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.vkm-classic .vkm-cookie-description {
+    font-size: 14px;
+    color: var(--vkm-text-muted);
+    margin: 0 0 8px 0;
+    max-width: 800px;
+}
+
+.vkm-classic .vkm-cookie-links {
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Actions */
+.vkm-classic .vkm-cookie-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .vkm-classic .vkm-cookie-content {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .vkm-classic .vkm-cookie-description {
+        max-width: none;
+    }
+
+    .vkm-classic .vkm-cookie-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .vkm-classic .vkm-cookie-container {
+        padding: 16px;
+    }
+
+    .vkm-classic .vkm-cookie-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .vkm-classic .vkm-cookie-actions .vkm-btn {
+        width: 100%;
+    }
+}
