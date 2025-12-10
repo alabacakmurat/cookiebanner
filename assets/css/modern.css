@@ -1,60 +1,60 @@
 /**
- * Havax Cookie Banner - Modern Template Styles
+ * Chronex Cookie Banner - Modern Template Styles
  * Card-style banner with shadow
  * Note: base.css is automatically included by TemplateManager
  */
 
 /* Modern Banner */
-.havax-cb-cookie-banner.havax-cb-modern {
+.chronex-cb-cookie-banner.chronex-cb-modern {
     padding: 16px;
 }
 
 /* Positions */
-.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-bottom-left {
+.chronex-cb-cookie-banner.chronex-cb-modern.chronex-cb-position-bottom-left {
     bottom: 0;
     left: 0;
 }
 
-.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-bottom-right {
+.chronex-cb-cookie-banner.chronex-cb-modern.chronex-cb-position-bottom-right {
     bottom: 0;
     right: 0;
 }
 
-.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-top-left {
+.chronex-cb-cookie-banner.chronex-cb-modern.chronex-cb-position-top-left {
     top: 0;
     left: 0;
 }
 
-.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-top-right {
+.chronex-cb-cookie-banner.chronex-cb-modern.chronex-cb-position-top-right {
     top: 0;
     right: 0;
 }
 
-.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-center {
+.chronex-cb-cookie-banner.chronex-cb-modern.chronex-cb-position-center {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.9);
 }
 
-.havax-cb-cookie-banner.havax-cb-modern.havax-cb-position-center.havax-cb-visible {
+.chronex-cb-cookie-banner.chronex-cb-modern.chronex-cb-position-center.chronex-cb-visible {
     transform: translate(-50%, -50%) scale(1);
 }
 
 /* Card */
-.havax-cb-modern .havax-cb-cookie-card {
-    background: var(--havax-cb-background);
-    border-radius: var(--havax-cb-radius-lg);
-    box-shadow: var(--havax-cb-shadow-lg);
+.chronex-cb-modern .chronex-cb-cookie-card {
+    background: var(--chronex-cb-background);
+    border-radius: var(--chronex-cb-radius-lg);
+    box-shadow: var(--chronex-cb-shadow-lg);
     padding: 24px;
     max-width: 420px;
-    animation: havax-cb-slide-up 0.3s ease;
+    animation: chronex-cb-slide-up 0.3s ease;
 }
 
 /* Icon */
-.havax-cb-modern .havax-cb-cookie-icon {
+.chronex-cb-modern .chronex-cb-cookie-icon {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, var(--havax-cb-primary), #3b82f6);
+    background: linear-gradient(135deg, var(--chronex-cb-primary), #3b82f6);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -62,83 +62,83 @@
     margin-bottom: 16px;
 }
 
-.havax-cb-modern .havax-cb-cookie-icon svg {
+.chronex-cb-modern .chronex-cb-cookie-icon svg {
     color: white;
 }
 
 /* Content */
-.havax-cb-modern .havax-cb-cookie-content {
+.chronex-cb-modern .chronex-cb-cookie-content {
     margin-bottom: 20px;
 }
 
-.havax-cb-modern .havax-cb-cookie-title {
+.chronex-cb-modern .chronex-cb-cookie-title {
     font-size: 18px;
     font-weight: 600;
     margin: 0 0 12px 0;
 }
 
-.havax-cb-modern .havax-cb-cookie-description {
+.chronex-cb-modern .chronex-cb-cookie-description {
     font-size: 14px;
-    color: var(--havax-cb-text-muted);
+    color: var(--chronex-cb-text-muted);
     margin: 0 0 12px 0;
     line-height: 1.6;
 }
 
-.havax-cb-modern .havax-cb-cookie-links {
+.chronex-cb-modern .chronex-cb-cookie-links {
     font-size: 13px;
     margin: 0;
 }
 
-.havax-cb-modern .havax-cb-cookie-links a {
+.chronex-cb-modern .chronex-cb-cookie-links a {
     margin-right: 16px;
 }
 
 /* Actions */
-.havax-cb-modern .havax-cb-cookie-actions {
+.chronex-cb-modern .chronex-cb-cookie-actions {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn {
+.chronex-cb-modern .chronex-cb-cookie-actions .chronex-cb-btn {
     width: 100%;
 }
 
 /* First row: Customize + Reject */
-.havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-preferences,
-.havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-reject {
+.chronex-cb-modern .chronex-cb-cookie-actions .chronex-cb-btn-preferences,
+.chronex-cb-modern .chronex-cb-cookie-actions .chronex-cb-btn-reject {
     order: 2;
 }
 
 /* Accept button prominent */
-.havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-accept {
+.chronex-cb-modern .chronex-cb-cookie-actions .chronex-cb-btn-accept {
     order: 1;
 }
 
 /* Side by side buttons */
 @media (min-width: 400px) {
-    .havax-cb-modern .havax-cb-cookie-actions {
+    .chronex-cb-modern .chronex-cb-cookie-actions {
         flex-direction: row;
         flex-wrap: wrap;
     }
 
-    .havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-accept {
+    .chronex-cb-modern .chronex-cb-cookie-actions .chronex-cb-btn-accept {
         flex: 1 1 100%;
     }
 
-    .havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-preferences,
-    .havax-cb-modern .havax-cb-cookie-actions .havax-cb-btn-reject {
+    .chronex-cb-modern .chronex-cb-cookie-actions .chronex-cb-btn-preferences,
+    .chronex-cb-modern .chronex-cb-cookie-actions .chronex-cb-btn-reject {
         flex: 1;
     }
 }
 
 /* Responsive */
 @media (max-width: 480px) {
-    .havax-cb-cookie-banner.havax-cb-modern {
+    .chronex-cb-cookie-banner.chronex-cb-modern {
         padding: 12px;
     }
 
-    .havax-cb-modern .havax-cb-cookie-card {
+    .chronex-cb-modern .chronex-cb-cookie-card {
         max-width: none;
         padding: 20px;
     }

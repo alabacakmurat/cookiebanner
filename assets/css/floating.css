@@ -1,79 +1,79 @@
 /**
- * Havax Cookie Banner - Floating Template Styles
+ * Chronex Cookie Banner - Floating Template Styles
  * Floating button that expands to show cookie options
  * Note: base.css is automatically included by TemplateManager
  */
 
 /* Floating Banner */
-.havax-cb-cookie-banner.havax-cb-floating {
+.chronex-cb-cookie-banner.chronex-cb-floating {
     padding: 16px;
 }
 
 /* Positions */
-.havax-cb-cookie-banner.havax-cb-floating.havax-cb-position-bottom-left {
+.chronex-cb-cookie-banner.chronex-cb-floating.chronex-cb-position-bottom-left {
     bottom: 0;
     left: 0;
 }
 
-.havax-cb-cookie-banner.havax-cb-floating.havax-cb-position-bottom-right {
+.chronex-cb-cookie-banner.chronex-cb-floating.chronex-cb-position-bottom-right {
     bottom: 0;
     right: 0;
 }
 
 /* Floating Button */
-.havax-cb-floating-button {
+.chronex-cb-floating-button {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--havax-cb-primary), #3b82f6);
+    background: linear-gradient(135deg, var(--chronex-cb-primary), #3b82f6);
     border: none;
-    box-shadow: var(--havax-cb-shadow-lg);
+    box-shadow: var(--chronex-cb-shadow-lg);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--havax-cb-transition);
+    transition: all var(--chronex-cb-transition);
     position: relative;
 }
 
-.havax-cb-floating-button:hover {
+.chronex-cb-floating-button:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 20px -5px rgba(37, 99, 235, 0.4);
 }
 
-.havax-cb-floating-button svg {
+.chronex-cb-floating-button svg {
     color: white;
-    transition: all var(--havax-cb-transition);
+    transition: all var(--chronex-cb-transition);
 }
 
-.havax-cb-floating-button .havax-cb-icon-cookie {
+.chronex-cb-floating-button .chronex-cb-icon-cookie {
     opacity: 1;
     transform: scale(1);
 }
 
-.havax-cb-floating-button .havax-cb-icon-close {
+.chronex-cb-floating-button .chronex-cb-icon-close {
     position: absolute;
     opacity: 0;
     transform: scale(0.5) rotate(-90deg);
 }
 
-.havax-cb-floating-button.havax-cb-active .havax-cb-icon-cookie {
+.chronex-cb-floating-button.chronex-cb-active .chronex-cb-icon-cookie {
     opacity: 0;
     transform: scale(0.5) rotate(90deg);
 }
 
-.havax-cb-floating-button.havax-cb-active .havax-cb-icon-close {
+.chronex-cb-floating-button.chronex-cb-active .chronex-cb-icon-close {
     opacity: 1;
     transform: scale(1) rotate(0deg);
 }
 
 /* Floating Panel */
-.havax-cb-floating-panel {
+.chronex-cb-floating-panel {
     position: absolute;
     bottom: 72px;
-    background: var(--havax-cb-background);
-    border-radius: var(--havax-cb-radius-lg);
-    box-shadow: var(--havax-cb-shadow-lg);
+    background: var(--chronex-cb-background);
+    border-radius: var(--chronex-cb-radius-lg);
+    box-shadow: var(--chronex-cb-shadow-lg);
     width: 320px;
     opacity: 0;
     visibility: hidden;
@@ -82,93 +82,93 @@
     transform-origin: bottom;
 }
 
-.havax-cb-position-bottom-left .havax-cb-floating-panel {
+.chronex-cb-position-bottom-left .chronex-cb-floating-panel {
     left: 0;
     transform-origin: bottom left;
 }
 
-.havax-cb-position-bottom-right .havax-cb-floating-panel {
+.chronex-cb-position-bottom-right .chronex-cb-floating-panel {
     right: 0;
     transform-origin: bottom right;
 }
 
-.havax-cb-floating-panel.havax-cb-visible {
+.chronex-cb-floating-panel.chronex-cb-visible {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
 }
 
 /* Panel Header */
-.havax-cb-panel-header {
+.chronex-cb-panel-header {
     padding: 16px 20px 12px;
 }
 
-.havax-cb-panel-title {
+.chronex-cb-panel-title {
     font-size: 16px;
     font-weight: 600;
     margin: 0;
 }
 
 /* Panel Body */
-.havax-cb-panel-body {
+.chronex-cb-panel-body {
     padding: 0 20px 16px;
 }
 
-.havax-cb-panel-description {
+.chronex-cb-panel-description {
     font-size: 13px;
-    color: var(--havax-cb-text-muted);
+    color: var(--chronex-cb-text-muted);
     margin: 0 0 16px 0;
     line-height: 1.5;
 }
 
 /* Categories List */
-.havax-cb-categories-list {
+.chronex-cb-categories-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 12px;
 }
 
-.havax-cb-category-item {
+.chronex-cb-category-item {
     flex: 0 0 auto;
 }
 
 /* Pill Toggle */
-.havax-cb-pill-toggle {
+.chronex-cb-pill-toggle {
     display: inline-flex;
     cursor: pointer;
 }
 
-.havax-cb-pill-toggle input {
+.chronex-cb-pill-toggle input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
-.havax-cb-pill-label {
+.chronex-cb-pill-label {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 6px 14px;
     font-size: 13px;
-    background: var(--havax-cb-surface);
-    border: 1px solid var(--havax-cb-border);
+    background: var(--chronex-cb-surface);
+    border: 1px solid var(--chronex-cb-border);
     border-radius: 20px;
-    transition: all var(--havax-cb-transition);
+    transition: all var(--chronex-cb-transition);
 }
 
-.havax-cb-pill-toggle input:checked + .havax-cb-pill-label {
-    background: var(--havax-cb-primary);
-    border-color: var(--havax-cb-primary);
+.chronex-cb-pill-toggle input:checked + .chronex-cb-pill-label {
+    background: var(--chronex-cb-primary);
+    border-color: var(--chronex-cb-primary);
     color: white;
 }
 
-.havax-cb-pill-toggle input:disabled + .havax-cb-pill-label {
+.chronex-cb-pill-toggle input:disabled + .chronex-cb-pill-label {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-.havax-cb-required-dot {
+.chronex-cb-required-dot {
     width: 6px;
     height: 6px;
     background: currentColor;
@@ -177,39 +177,39 @@
 }
 
 /* Panel Link */
-.havax-cb-panel-link {
+.chronex-cb-panel-link {
     display: inline-flex;
     align-items: center;
     gap: 4px;
     font-size: 13px;
-    color: var(--havax-cb-primary);
+    color: var(--chronex-cb-primary);
     text-decoration: none;
 }
 
-.havax-cb-panel-link:hover {
+.chronex-cb-panel-link:hover {
     text-decoration: underline;
 }
 
 /* Panel Footer */
-.havax-cb-panel-footer {
+.chronex-cb-panel-footer {
     display: flex;
     gap: 8px;
     padding: 12px 20px 16px;
-    border-top: 1px solid var(--havax-cb-border);
+    border-top: 1px solid var(--chronex-cb-border);
 }
 
-.havax-cb-panel-footer .havax-cb-btn {
+.chronex-cb-panel-footer .chronex-cb-btn {
     flex: 1;
     padding: 8px 12px;
     font-size: 13px;
 }
 
 /* Animation for initial show */
-.havax-cb-cookie-banner.havax-cb-floating.havax-cb-visible .havax-cb-floating-panel {
-    animation: havax-cb-bounce-in 0.3s ease;
+.chronex-cb-cookie-banner.chronex-cb-floating.chronex-cb-visible .chronex-cb-floating-panel {
+    animation: chronex-cb-bounce-in 0.3s ease;
 }
 
-@keyframes havax-cb-bounce-in {
+@keyframes chronex-cb-bounce-in {
     0% {
         opacity: 0;
         transform: translateY(20px) scale(0.9);
@@ -225,7 +225,7 @@
 
 /* Responsive */
 @media (max-width: 360px) {
-    .havax-cb-floating-panel {
+    .chronex-cb-floating-panel {
         width: calc(100vw - 32px);
         left: 16px !important;
         right: 16px !important;

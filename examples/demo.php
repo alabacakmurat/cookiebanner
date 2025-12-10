@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Havax Cookie Banner - Demo Page
+ * Chronex Cookie Banner - Demo Page
  *
  * This page demonstrates all features of the cookie banner library
  */
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Havax\CookieBanner\CookieBanner;
-use Havax\CookieBanner\Event\ConsentEvent;
+use Chronex\CookieBanner\CookieBanner;
+use Chronex\CookieBanner\Event\ConsentEvent;
 
 // Get template from query string
 $template = $_GET['template'] ?? 'modern';
@@ -96,7 +96,7 @@ $languages = ['en' => 'English', 'tr' => 'Türkçe', 'de' => 'Deutsch', 'fr' => 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Havax Cookie Banner - Demo</title>
+	<title>Chronex Cookie Banner - Demo</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -342,7 +342,7 @@ $languages = ['en' => 'English', 'tr' => 'Türkçe', 'de' => 'Deutsch', 'fr' => 
 
 <body>
 	<header>
-		<h1>Havax Cookie Banner</h1>
+		<h1>Chronex Cookie Banner</h1>
 		<p>GDPR Compliant Cookie Consent Solution</p>
 	</header>
 
@@ -457,8 +457,8 @@ $languages = ['en' => 'English', 'tr' => 'Türkçe', 'de' => 'Deutsch', 'fr' => 
 		<div class="card">
 			<h2>Usage Example</h2>
 			<pre style="background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 13px;">&lt;?php
-use Havax\CookieBanner\CookieBanner;
-use Havax\CookieBanner\Event\ConsentEvent;
+use Chronex\CookieBanner\CookieBanner;
+use Chronex\CookieBanner\Event\ConsentEvent;
 
 $banner = new CookieBanner([
     'template' => '<?= $template ?>',
@@ -484,7 +484,7 @@ echo $banner->renderAll();
 	</div>
 
 	<footer>
-		<p>Havax Cookie Banner v1.0.0 | <a href="https://github.com/alabacakmurat/cookiebanner">GitHub</a></p>
+		<p>Chronex Cookie Banner v1.0.0 | <a href="https://github.com/alabacakmurat/cookiebanner">GitHub</a></p>
 	</footer>
 
 	<?= $banner->render() ?>
@@ -494,8 +494,8 @@ echo $banner->renderAll();
 		// Update consent status display
 		function updateConsentStatus() {
 			const status = document.getElementById('consent-status');
-			if (window.havaxCbInstance) {
-				const consent = window.havaxCbInstance.getConsentData();
+			if (window.chronexCbInstance) {
+				const consent = window.chronexCbInstance.getConsentData();
 				status.textContent = consent ?
 					JSON.stringify(consent, null, 2) :
 					'No consent given yet';
@@ -526,26 +526,26 @@ echo $banner->renderAll();
 		}
 
 		// Wait for banner to initialize
-		document.addEventListener('havax-cb:init', function(e) {
+		document.addEventListener('chronex-cb:init', function(e) {
 			updateConsentStatus();
-			logEvent('havax-cb:init', {
+			logEvent('chronex-cb:init', {
 				hasConsent: e.detail.consent !== null
 			});
 		});
 
 		// Listen for all events
 		const events = [
-			'havax-cb:consent:given',
-			'havax-cb:consent:updated',
-			'havax-cb:consent:withdrawn',
-			'havax-cb:banner:shown',
-			'havax-cb:banner:hidden',
-			'havax-cb:preferences:opened',
-			'havax-cb:preferences:closed',
-			'havax-cb:script:loaded',
-			'havax-cb:script:blocked',
-			'havax-cb:category:enabled',
-			'havax-cb:category:disabled'
+			'chronex-cb:consent:given',
+			'chronex-cb:consent:updated',
+			'chronex-cb:consent:withdrawn',
+			'chronex-cb:banner:shown',
+			'chronex-cb:banner:hidden',
+			'chronex-cb:preferences:opened',
+			'chronex-cb:preferences:closed',
+			'chronex-cb:script:loaded',
+			'chronex-cb:script:blocked',
+			'chronex-cb:category:enabled',
+			'chronex-cb:category:disabled'
 		];
 
 		events.forEach(eventName => {
@@ -557,32 +557,32 @@ echo $banner->renderAll();
 
 		// Action functions
 		function showBanner() {
-			if (window.havaxCbInstance) {
-				window.havaxCbInstance.showBanner();
+			if (window.chronexCbInstance) {
+				window.chronexCbInstance.showBanner();
 			}
 		}
 
 		function showPreferences() {
-			if (window.havaxCbInstance) {
-				window.havaxCbInstance.showPreferences();
+			if (window.chronexCbInstance) {
+				window.chronexCbInstance.showPreferences();
 			}
 		}
 
 		function acceptAllCookies() {
-			if (window.havaxCbInstance) {
-				window.havaxCbInstance.acceptAll();
+			if (window.chronexCbInstance) {
+				window.chronexCbInstance.acceptAll();
 			}
 		}
 
 		function rejectAllCookies() {
-			if (window.havaxCbInstance) {
-				window.havaxCbInstance.rejectAll();
+			if (window.chronexCbInstance) {
+				window.chronexCbInstance.rejectAll();
 			}
 		}
 
 		function withdrawConsent() {
-			if (window.havaxCbInstance) {
-				window.havaxCbInstance.withdrawConsent();
+			if (window.chronexCbInstance) {
+				window.chronexCbInstance.withdrawConsent();
 			}
 		}
 
@@ -595,8 +595,8 @@ echo $banner->renderAll();
 
 		// Show banner if no consent
 		setTimeout(function() {
-			if (window.havaxCbInstance && !window.havaxCbInstance.hasConsent()) {
-				window.havaxCbInstance.showBanner();
+			if (window.chronexCbInstance && !window.chronexCbInstance.hasConsent()) {
+				window.chronexCbInstance.showBanner();
 			}
 		}, 500);
 	</script>

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Template;
+namespace Chronex\CookieBanner\Template;
 
-use Havax\CookieBanner\Config\Configuration;
-use Havax\CookieBanner\Template\Templates\ClassicTemplate;
-use Havax\CookieBanner\Template\Templates\ModernTemplate;
-use Havax\CookieBanner\Template\Templates\MinimalTemplate;
-use Havax\CookieBanner\Template\Templates\FloatingTemplate;
-use Havax\CookieBanner\Template\Templates\BlockingTemplate;
+use Chronex\CookieBanner\Config\Configuration;
+use Chronex\CookieBanner\Template\Templates\ClassicTemplate;
+use Chronex\CookieBanner\Template\Templates\ModernTemplate;
+use Chronex\CookieBanner\Template\Templates\MinimalTemplate;
+use Chronex\CookieBanner\Template\Templates\FloatingTemplate;
+use Chronex\CookieBanner\Template\Templates\BlockingTemplate;
 use InvalidArgumentException;
 
 class TemplateManager

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Template\Templates;
+namespace Chronex\CookieBanner\Template\Templates;
 
-use Havax\CookieBanner\Template\AbstractTemplate;
+use Chronex\CookieBanner\Template\AbstractTemplate;
 
 class FloatingTemplate extends AbstractTemplate
 {

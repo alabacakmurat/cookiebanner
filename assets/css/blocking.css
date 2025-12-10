@@ -1,11 +1,11 @@
 /**
- * Havax Cookie Banner - Blocking Template Styles
+ * Chronex Cookie Banner - Blocking Template Styles
  * Full-screen overlay that blocks site access until cookies are accepted
  * Note: base.css is automatically included by TemplateManager
  */
 
 /* Blocking Banner - Full Screen */
-.havax-cb-cookie-banner.havax-cb-blocking {
+.chronex-cb-cookie-banner.chronex-cb-blocking {
     position: fixed;
     top: 0;
     left: 0;
@@ -19,7 +19,7 @@
 }
 
 /* Overlay Background */
-.havax-cb-blocking-overlay {
+.chronex-cb-blocking-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -31,7 +31,7 @@
 }
 
 /* Container */
-.havax-cb-blocking-container {
+.chronex-cb-blocking-container {
     position: relative;
     z-index: 1;
     width: 100%;
@@ -42,18 +42,18 @@
 }
 
 /* Card */
-.havax-cb-blocking-card {
-    background: var(--havax-cb-background);
-    border-radius: var(--havax-cb-radius-lg);
+.chronex-cb-blocking-card {
+    background: var(--chronex-cb-background);
+    border-radius: var(--chronex-cb-radius-lg);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    animation: havax-cb-blocking-appear 0.4s ease;
+    animation: chronex-cb-blocking-appear 0.4s ease;
     display: flex;
     flex-direction: column;
     max-height: 90vh;
     overflow: hidden;
 }
 
-@keyframes havax-cb-blocking-appear {
+@keyframes chronex-cb-blocking-appear {
     0% {
         opacity: 0;
         transform: scale(0.9) translateY(20px);
@@ -65,14 +65,14 @@
 }
 
 /* Header */
-.havax-cb-blocking-header {
+.chronex-cb-blocking-header {
     padding: 32px 32px 24px;
     text-align: center;
-    border-bottom: 1px solid var(--havax-cb-border);
+    border-bottom: 1px solid var(--chronex-cb-border);
     flex-shrink: 0;
 }
 
-.havax-cb-blocking-icon {
+.chronex-cb-blocking-icon {
     width: 72px;
     height: 72px;
     margin: 0 auto 20px;
@@ -85,78 +85,78 @@
     box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.5);
 }
 
-.havax-cb-blocking-title {
+.chronex-cb-blocking-title {
     font-size: 24px;
     font-weight: 700;
     margin: 0;
-    color: var(--havax-cb-text);
+    color: var(--chronex-cb-text);
 }
 
 /* Body */
-.havax-cb-blocking-body {
+.chronex-cb-blocking-body {
     padding: 24px 32px;
     overflow-y: auto;
     flex: 1;
     min-height: 0;
 }
 
-.havax-cb-blocking-message {
+.chronex-cb-blocking-message {
     font-size: 15px;
     line-height: 1.7;
-    color: var(--havax-cb-text-muted);
+    color: var(--chronex-cb-text-muted);
     margin: 0 0 24px 0;
     text-align: center;
 }
 
 /* Categories Section */
-.havax-cb-blocking-categories {
-    background: var(--havax-cb-surface);
-    border-radius: var(--havax-cb-radius);
+.chronex-cb-blocking-categories {
+    background: var(--chronex-cb-surface);
+    border-radius: var(--chronex-cb-radius);
     padding: 20px;
     margin-bottom: 20px;
 }
 
-.havax-cb-blocking-categories-title {
+.chronex-cb-blocking-categories-title {
     font-size: 14px;
     font-weight: 600;
-    color: var(--havax-cb-text);
+    color: var(--chronex-cb-text);
     margin: 0 0 16px 0;
 }
 
 /* Category List */
-.havax-cb-category-list {
+.chronex-cb-category-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.havax-cb-category-item {
-    background: var(--havax-cb-background);
-    border: 1px solid var(--havax-cb-border);
-    border-radius: var(--havax-cb-radius);
+.chronex-cb-category-item {
+    background: var(--chronex-cb-background);
+    border: 1px solid var(--chronex-cb-border);
+    border-radius: var(--chronex-cb-radius);
     padding: 12px 16px;
-    transition: all var(--havax-cb-transition);
+    transition: all var(--chronex-cb-transition);
 }
 
-.havax-cb-category-item:hover {
-    border-color: var(--havax-cb-primary);
+.chronex-cb-category-item:hover {
+    border-color: var(--chronex-cb-primary);
 }
 
-.havax-cb-category-label {
+.chronex-cb-category-label {
     display: flex;
     align-items: flex-start;
     gap: 12px;
     cursor: pointer;
 }
 
-.havax-cb-category-checkbox {
+.chronex-cb-category-checkbox {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
 /* Custom Toggle */
-.havax-cb-category-toggle {
+.chronex-cb-category-toggle {
     flex-shrink: 0;
     width: 44px;
     height: 24px;
@@ -164,18 +164,18 @@
     margin-top: 2px;
 }
 
-.havax-cb-toggle-track {
+.chronex-cb-toggle-track {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--havax-cb-border);
+    background: var(--chronex-cb-border);
     border-radius: 12px;
-    transition: all var(--havax-cb-transition);
+    transition: all var(--chronex-cb-transition);
 }
 
-.havax-cb-toggle-thumb {
+.chronex-cb-toggle-thumb {
     position: absolute;
     top: 2px;
     left: 2px;
@@ -184,43 +184,43 @@
     background: white;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: all var(--havax-cb-transition);
+    transition: all var(--chronex-cb-transition);
 }
 
-.havax-cb-category-checkbox:checked + .havax-cb-category-toggle .havax-cb-toggle-track {
-    background: var(--havax-cb-primary);
+.chronex-cb-category-checkbox:checked + .chronex-cb-category-toggle .chronex-cb-toggle-track {
+    background: var(--chronex-cb-primary);
 }
 
-.havax-cb-category-checkbox:checked + .havax-cb-category-toggle .havax-cb-toggle-thumb {
+.chronex-cb-category-checkbox:checked + .chronex-cb-category-toggle .chronex-cb-toggle-thumb {
     transform: translateX(20px);
 }
 
-.havax-cb-category-checkbox:disabled + .havax-cb-category-toggle {
+.chronex-cb-category-checkbox:disabled + .chronex-cb-category-toggle {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-.havax-cb-category-checkbox:disabled + .havax-cb-category-toggle .havax-cb-toggle-track {
-    background: var(--havax-cb-primary);
+.chronex-cb-category-checkbox:disabled + .chronex-cb-category-toggle .chronex-cb-toggle-track {
+    background: var(--chronex-cb-primary);
 }
 
 /* Category Info */
-.havax-cb-category-info {
+.chronex-cb-category-info {
     flex: 1;
     min-width: 0;
 }
 
-.havax-cb-category-name {
+.chronex-cb-category-name {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--havax-cb-text);
+    color: var(--chronex-cb-text);
     margin-bottom: 4px;
 }
 
-.havax-cb-category-badge {
+.chronex-cb-category-badge {
     font-size: 10px;
     font-weight: 600;
     padding: 2px 8px;
@@ -229,68 +229,68 @@
     letter-spacing: 0.5px;
 }
 
-.havax-cb-badge-required {
+.chronex-cb-badge-required {
     background: rgba(34, 197, 94, 0.15);
     color: #16a34a;
 }
 
-.havax-cb-category-desc {
+.chronex-cb-category-desc {
     display: block;
     font-size: 13px;
-    color: var(--havax-cb-text-muted);
+    color: var(--chronex-cb-text-muted);
     line-height: 1.5;
 }
 
 /* Policy Links */
-.havax-cb-blocking-links {
+.chronex-cb-blocking-links {
     display: flex;
     justify-content: center;
     gap: 24px;
     margin-top: 16px;
 }
 
-.havax-cb-policy-link {
+.chronex-cb-policy-link {
     display: inline-flex;
     align-items: center;
     gap: 4px;
     font-size: 13px;
-    color: var(--havax-cb-primary);
+    color: var(--chronex-cb-primary);
     text-decoration: none;
-    transition: all var(--havax-cb-transition);
+    transition: all var(--chronex-cb-transition);
 }
 
-.havax-cb-policy-link:hover {
+.chronex-cb-policy-link:hover {
     text-decoration: underline;
 }
 
 /* Footer */
-.havax-cb-blocking-footer {
+.chronex-cb-blocking-footer {
     display: flex;
     gap: 12px;
     padding: 20px 32px 24px;
-    border-top: 1px solid var(--havax-cb-border);
+    border-top: 1px solid var(--chronex-cb-border);
     flex-shrink: 0;
 }
 
-.havax-cb-blocking-footer .havax-cb-btn {
+.chronex-cb-blocking-footer .chronex-cb-btn {
     flex: 1;
     padding: 14px 24px;
     font-size: 15px;
     font-weight: 600;
 }
 
-.havax-cb-blocking-footer .havax-cb-btn-accept {
-    background: linear-gradient(135deg, var(--havax-cb-primary), #3b82f6);
+.chronex-cb-blocking-footer .chronex-cb-btn-accept {
+    background: linear-gradient(135deg, var(--chronex-cb-primary), #3b82f6);
 }
 
-.havax-cb-blocking-footer .havax-cb-btn-accept:hover {
+.chronex-cb-blocking-footer .chronex-cb-btn-accept:hover {
     background: linear-gradient(135deg, #1d4ed8, #2563eb);
     transform: translateY(-1px);
     box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.5);
 }
 
 /* Warning */
-.havax-cb-blocking-warning {
+.chronex-cb-blocking-warning {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -301,7 +301,7 @@
     flex-shrink: 0;
 }
 
-.havax-cb-blocking-warning svg {
+.chronex-cb-blocking-warning svg {
     flex-shrink: 0;
 }
 
@@ -309,7 +309,7 @@
    Preferences Modal (for detailed settings)
    ============================================= */
 
-.havax-cb-blocking-preferences .havax-cb-modal-container {
+.chronex-cb-blocking-preferences .chronex-cb-modal-container {
     max-width: 500px;
 }
 
@@ -317,7 +317,7 @@
    Body Scroll Lock (applied via JS)
    ============================================= */
 
-body.havax-cb-blocking-active {
+body.chronex-cb-blocking-active {
     overflow: hidden !important;
     height: 100vh !important;
     position: fixed !important;
@@ -329,83 +329,83 @@ body.havax-cb-blocking-active {
    ============================================= */
 
 @media (max-width: 640px) {
-    .havax-cb-cookie-banner.havax-cb-blocking {
+    .chronex-cb-cookie-banner.chronex-cb-blocking {
         padding: 12px;
     }
 
-    .havax-cb-blocking-card {
-        border-radius: var(--havax-cb-radius);
+    .chronex-cb-blocking-card {
+        border-radius: var(--chronex-cb-radius);
     }
 
-    .havax-cb-blocking-header {
+    .chronex-cb-blocking-header {
         padding: 24px 20px 20px;
     }
 
-    .havax-cb-blocking-icon {
+    .chronex-cb-blocking-icon {
         width: 60px;
         height: 60px;
     }
 
-    .havax-cb-blocking-icon svg {
+    .chronex-cb-blocking-icon svg {
         width: 32px;
         height: 32px;
     }
 
-    .havax-cb-blocking-title {
+    .chronex-cb-blocking-title {
         font-size: 20px;
     }
 
-    .havax-cb-blocking-body {
+    .chronex-cb-blocking-body {
         padding: 20px;
         overflow-y: auto;
     }
 
-    .havax-cb-blocking-message {
+    .chronex-cb-blocking-message {
         font-size: 14px;
     }
 
-    .havax-cb-blocking-categories {
+    .chronex-cb-blocking-categories {
         padding: 16px;
     }
 
-    .havax-cb-category-item {
+    .chronex-cb-category-item {
         padding: 10px 12px;
     }
 
-    .havax-cb-category-label {
+    .chronex-cb-category-label {
         gap: 10px;
     }
 
-    .havax-cb-category-toggle {
+    .chronex-cb-category-toggle {
         width: 40px;
         height: 22px;
     }
 
-    .havax-cb-toggle-thumb {
+    .chronex-cb-toggle-thumb {
         width: 18px;
         height: 18px;
     }
 
-    .havax-cb-category-checkbox:checked + .havax-cb-category-toggle .havax-cb-toggle-thumb {
+    .chronex-cb-category-checkbox:checked + .chronex-cb-category-toggle .chronex-cb-toggle-thumb {
         transform: translateX(18px);
     }
 
-    .havax-cb-blocking-footer {
+    .chronex-cb-blocking-footer {
         flex-direction: column;
         padding: 16px 20px 20px;
     }
 
-    .havax-cb-blocking-footer .havax-cb-btn {
+    .chronex-cb-blocking-footer .chronex-cb-btn {
         width: 100%;
     }
 
-    .havax-cb-blocking-links {
+    .chronex-cb-blocking-links {
         flex-direction: column;
         gap: 12px;
         align-items: center;
     }
 
-    .havax-cb-blocking-warning {
+    .chronex-cb-blocking-warning {
         padding: 12px 20px 16px;
         text-align: center;
     }
@@ -413,19 +413,19 @@ body.havax-cb-blocking-active {
 
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
-    .havax-cb-cookie-banner.havax-cb-blocking {
-        --havax-cb-background: #1e293b;
-        --havax-cb-surface: #0f172a;
-        --havax-cb-text: #f1f5f9;
-        --havax-cb-text-muted: #94a3b8;
-        --havax-cb-border: #334155;
+    .chronex-cb-cookie-banner.chronex-cb-blocking {
+        --chronex-cb-background: #1e293b;
+        --chronex-cb-surface: #0f172a;
+        --chronex-cb-text: #f1f5f9;
+        --chronex-cb-text-muted: #94a3b8;
+        --chronex-cb-border: #334155;
     }
 
-    .havax-cb-blocking-overlay {
+    .chronex-cb-blocking-overlay {
         background: rgba(0, 0, 0, 0.9);
     }
 
-    .havax-cb-badge-required {
+    .chronex-cb-badge-required {
         background: rgba(34, 197, 94, 0.2);
     }
 }

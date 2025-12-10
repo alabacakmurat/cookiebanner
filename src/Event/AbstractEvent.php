@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Event;
+namespace Chronex\CookieBanner\Event;
 
 abstract class AbstractEvent implements EventInterface
 {

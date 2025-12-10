@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Consent;
+namespace Chronex\CookieBanner\Consent;
 
 use DateTimeImmutable;
 use JsonSerializable;

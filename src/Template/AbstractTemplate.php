@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Template;
+namespace Chronex\CookieBanner\Template;
 
-use Havax\CookieBanner\Config\Configuration;
+use Chronex\CookieBanner\Config\Configuration;
 
 abstract class AbstractTemplate implements TemplateInterface
 {

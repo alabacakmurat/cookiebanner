@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Event;
+namespace Chronex\CookieBanner\Event;
 
-use Havax\CookieBanner\Consent\ConsentData;
+use Chronex\CookieBanner\Consent\ConsentData;
 use DateTimeImmutable;
 
 class ConsentEvent extends AbstractEvent

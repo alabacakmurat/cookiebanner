@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Consent;
+namespace Chronex\CookieBanner\Consent;
 
-use Havax\CookieBanner\Config\Configuration;
-use Havax\CookieBanner\Event\EventDispatcher;
-use Havax\CookieBanner\Event\ConsentEvent;
+use Chronex\CookieBanner\Config\Configuration;
+use Chronex\CookieBanner\Event\EventDispatcher;
+use Chronex\CookieBanner\Event\ConsentEvent;
 
 class ConsentManager
 {

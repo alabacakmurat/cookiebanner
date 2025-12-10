@@ -1,5 +1,5 @@
 {
-    "name": "havax/cookiebanner",
+    "name": "chronex/cookiebanner",
     "description": "A flexible, customizable GDPR-compliant cookie consent banner with automatic script blocking, multiple templates, and comprehensive event hooks.",
     "type": "library",
     "license": "MIT",
@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Havax\\CookieBanner\\": "src/"
+            "Chronex\\CookieBanner\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Havax\\CookieBanner\\Tests\\": "tests/"
+            "Chronex\\CookieBanner\\Tests\\": "tests/"
         }
     },
     "scripts": {

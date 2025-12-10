@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Language;
+namespace Chronex\CookieBanner\Language;
 
 class TranslationManager
 {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Havax Cookie Banner - User Tracking Example
+ * Chronex Cookie Banner - User Tracking Example
  *
  * This example demonstrates how to associate cookie consent with logged-in users.
  * This is useful for:
@@ -13,8 +13,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Havax\CookieBanner\CookieBanner;
-use Havax\CookieBanner\Event\ConsentEvent;
+use Chronex\CookieBanner\CookieBanner;
+use Chronex\CookieBanner\Event\ConsentEvent;
 
 // ============================================================
 // Simulate a logged-in user (replace with your auth system)
@@ -160,7 +160,7 @@ $consent = $banner->getConsent();
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>User Tracking - Havax Cookie Banner</title>
+	<title>User Tracking - Chronex Cookie Banner</title>
 	<?= $banner->renderCss() ?>
 	<style>
 		* {
@@ -492,10 +492,10 @@ $consent = $banner->getConsent();
 			<?php endif; ?>
 
 			<div class="btn-group">
-				<button class="btn btn-primary" onclick="havaxCbInstance.showBanner()">Show Consent Banner</button>
-				<button class="btn btn-secondary" onclick="havaxCbInstance.showPreferences()">Open Preferences</button>
+				<button class="btn btn-primary" onclick="chronexCbInstance.showBanner()">Show Consent Banner</button>
+				<button class="btn btn-secondary" onclick="chronexCbInstance.showPreferences()">Open Preferences</button>
 				<?php if ($hasConsent): ?>
-					<button class="btn btn-danger" onclick="havaxCbInstance.withdrawConsent()">Withdraw Consent</button>
+					<button class="btn btn-danger" onclick="chronexCbInstance.withdrawConsent()">Withdraw Consent</button>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -563,18 +563,18 @@ $consent = $banner->getConsent();
 
 	<script>
 		// Show banner if no consent
-		document.addEventListener('havax-cb:init', function() {
-			if (!havaxCbInstance.hasConsent()) {
-				havaxCbInstance.showBanner();
+		document.addEventListener('chronex-cb:init', function() {
+			if (!chronexCbInstance.hasConsent()) {
+				chronexCbInstance.showBanner();
 			}
 		});
 
 		// Reload page on consent change
-		document.addEventListener('havax-cb:consent:given', function() {
+		document.addEventListener('chronex-cb:consent:given', function() {
 			setTimeout(() => location.reload(), 500);
 		});
 
-		document.addEventListener('havax-cb:consent:withdrawn', function() {
+		document.addEventListener('chronex-cb:consent:withdrawn', function() {
 			setTimeout(() => location.reload(), 500);
 		});
 	</script>

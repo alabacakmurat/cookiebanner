@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\ScriptBlocker;
+namespace Chronex\CookieBanner\ScriptBlocker;
 
-use Havax\CookieBanner\Config\Configuration;
-use Havax\CookieBanner\Consent\ConsentManager;
-use Havax\CookieBanner\Event\EventDispatcher;
-use Havax\CookieBanner\Event\ScriptBlockedEvent;
-use Havax\CookieBanner\Event\ScriptLoadedEvent;
+use Chronex\CookieBanner\Config\Configuration;
+use Chronex\CookieBanner\Consent\ConsentManager;
+use Chronex\CookieBanner\Event\EventDispatcher;
+use Chronex\CookieBanner\Event\ScriptBlockedEvent;
+use Chronex\CookieBanner\Event\ScriptLoadedEvent;
 
 class ScriptBlocker
 {
@@ -251,7 +251,7 @@ class ScriptBlocker
 		if ($scriptData['type'] === 'external') {
 			return preg_replace(
 				'/<script([^>]*)>/',
-				'<script type="text/plain" data-havax-cb-category="' . htmlspecialchars($category) . '" data-havax-cb-script-id="' . htmlspecialchars($id) . '"$1>',
+				'<script type="text/plain" data-chronex-cb-category="' . htmlspecialchars($category) . '" data-chronex-cb-script-id="' . htmlspecialchars($id) . '"$1>',
 				$script
 			);
 		}
@@ -260,13 +260,13 @@ class ScriptBlocker
 		if ($scriptData['type'] === 'inline') {
 			return preg_replace(
 				'/<script([^>]*)>/',
-				'<script type="text/plain" data-havax-cb-category="' . htmlspecialchars($category) . '" data-havax-cb-script-id="' . htmlspecialchars($id) . '"$1>',
+				'<script type="text/plain" data-chronex-cb-category="' . htmlspecialchars($category) . '" data-chronex-cb-script-id="' . htmlspecialchars($id) . '"$1>',
 				$script
 			);
 		}
 
 		// For raw JavaScript code
-		return '<script type="text/plain" data-havax-cb-category="' . htmlspecialchars($category) . '" data-havax-cb-script-id="' . htmlspecialchars($id) . '">'
+		return '<script type="text/plain" data-chronex-cb-category="' . htmlspecialchars($category) . '" data-chronex-cb-script-id="' . htmlspecialchars($id) . '">'
 			. $script
 			. '</script>';
 	}

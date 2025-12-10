@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Havax Cookie Banner - API Usage Example
+ * Chronex Cookie Banner - API Usage Example
  *
  * This example demonstrates how to use the PHP API with JavaScript integration.
  * The API enables server-side event handling for consent logging, database storage,
@@ -60,12 +60,12 @@
  * -----------------
  * JavaScript dispatches these events on document:
  *
- * - havax-cb:init              - Banner initialized
- * - havax-cb:consent:given     - First consent given
- * - havax-cb:consent:updated   - Consent updated
- * - havax-cb:consent:withdrawn - Consent withdrawn
- * - havax-cb:api:success       - API call successful
- * - havax-cb:api:error         - API call failed
+ * - chronex-cb:init              - Banner initialized
+ * - chronex-cb:consent:given     - First consent given
+ * - chronex-cb:consent:updated   - Consent updated
+ * - chronex-cb:consent:withdrawn - Consent withdrawn
+ * - chronex-cb:api:success       - API call successful
+ * - chronex-cb:api:error         - API call failed
  *
  * USER IDENTIFIER
  * ---------------
@@ -80,8 +80,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Havax\CookieBanner\CookieBanner;
-use Havax\CookieBanner\Event\ConsentEvent;
+use Chronex\CookieBanner\CookieBanner;
+use Chronex\CookieBanner\Event\ConsentEvent;
 
 // ============================================================================
 // BASIC SETUP WITH API
@@ -205,7 +205,7 @@ $userIdentifier = $banner->getUserIdentifier();
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>API Example - Havax Cookie Banner</title>
+	<title>API Example - Chronex Cookie Banner</title>
 	<?= $banner->renderCss() ?>
 	<style>
 		* {
@@ -407,9 +407,9 @@ $userIdentifier = $banner->getUserIdentifier();
 			</div>
 
 			<div style="margin-top: 20px;">
-				<button class="btn btn-primary" onclick="havaxCbInstance.showBanner()">Show Banner</button>
-				<button class="btn btn-secondary" onclick="havaxCbInstance.showPreferences()">Preferences</button>
-				<button class="btn btn-danger" onclick="havaxCbInstance.withdrawConsent()">Withdraw</button>
+				<button class="btn btn-primary" onclick="chronexCbInstance.showBanner()">Show Banner</button>
+				<button class="btn btn-secondary" onclick="chronexCbInstance.showPreferences()">Preferences</button>
+				<button class="btn btn-danger" onclick="chronexCbInstance.withdrawConsent()">Withdraw</button>
 			</div>
 		</div>
 
@@ -465,42 +465,42 @@ $banner->on(ConsentEvent::TYPE_WITHDRAWN, function (ConsentEvent $event) {
 			<h2>JavaScript API</h2>
 			<div class="section-title">Methods</div>
 			<pre><code>// Show/hide banner
-havaxCbInstance.showBanner();
-havaxCbInstance.hideBanner();
+chronexCbInstance.showBanner();
+chronexCbInstance.hideBanner();
 
 // Manage consent
-havaxCbInstance.acceptAll();
-havaxCbInstance.rejectAll();
-havaxCbInstance.giveConsent(['necessary', 'analytics'], 'custom');
-havaxCbInstance.withdrawConsent();
+chronexCbInstance.acceptAll();
+chronexCbInstance.rejectAll();
+chronexCbInstance.giveConsent(['necessary', 'analytics'], 'custom');
+chronexCbInstance.withdrawConsent();
 
 // Check consent
-havaxCbInstance.hasConsent();           // true/false
-havaxCbInstance.hasConsentFor('analytics'); // true/false
-havaxCbInstance.getAcceptedCategories();    // ['necessary', ...]
+chronexCbInstance.hasConsent();           // true/false
+chronexCbInstance.hasConsentFor('analytics'); // true/false
+chronexCbInstance.getAcceptedCategories();    // ['necessary', ...]
 
 // Preferences modal
-havaxCbInstance.showPreferences();
-havaxCbInstance.closePreferences();</code></pre>
+chronexCbInstance.showPreferences();
+chronexCbInstance.closePreferences();</code></pre>
 
 			<div class="section-title" style="margin-top: 24px;">Events</div>
-			<pre><code>document.addEventListener('havax-cb:consent:given', function(e) {
+			<pre><code>document.addEventListener('chronex-cb:consent:given', function(e) {
     console.log('Consent given:', e.detail.acceptedCategories);
 });
 
-document.addEventListener('havax-cb:consent:updated', function(e) {
+document.addEventListener('chronex-cb:consent:updated', function(e) {
     console.log('Consent updated:', e.detail.consent);
 });
 
-document.addEventListener('havax-cb:consent:withdrawn', function(e) {
+document.addEventListener('chronex-cb:consent:withdrawn', function(e) {
     console.log('Consent withdrawn');
 });
 
-document.addEventListener('havax-cb:api:success', function(e) {
+document.addEventListener('chronex-cb:api:success', function(e) {
     console.log('API success:', e.detail.action);
 });
 
-document.addEventListener('havax-cb:api:error', function(e) {
+document.addEventListener('chronex-cb:api:error', function(e) {
     console.log('API error:', e.detail.error);
 });</code></pre>
 		</div>
@@ -521,36 +521,36 @@ document.addEventListener('havax-cb:api:error', function(e) {
 		}
 
 		// Listen for all events
-		document.addEventListener('havax-cb:init', function(e) {
+		document.addEventListener('chronex-cb:init', function(e) {
 			logEvent('INIT', 'Banner initialized', 'api');
 		});
 
-		document.addEventListener('havax-cb:consent:given', function(e) {
+		document.addEventListener('chronex-cb:consent:given', function(e) {
 			const cats = e.detail.acceptedCategories.join(', ');
 			logEvent('CONSENT_GIVEN', `Accepted: ${cats}`, 'given');
 		});
 
-		document.addEventListener('havax-cb:consent:updated', function(e) {
+		document.addEventListener('chronex-cb:consent:updated', function(e) {
 			const cats = e.detail.acceptedCategories.join(', ');
 			logEvent('CONSENT_UPDATED', `Now accepted: ${cats}`, 'updated');
 		});
 
-		document.addEventListener('havax-cb:consent:withdrawn', function(e) {
+		document.addEventListener('chronex-cb:consent:withdrawn', function(e) {
 			logEvent('CONSENT_WITHDRAWN', 'All consent removed', 'withdrawn');
 		});
 
-		document.addEventListener('havax-cb:api:success', function(e) {
+		document.addEventListener('chronex-cb:api:success', function(e) {
 			logEvent('API_SUCCESS', `Action: ${e.detail.action}`, 'api');
 		});
 
-		document.addEventListener('havax-cb:api:error', function(e) {
+		document.addEventListener('chronex-cb:api:error', function(e) {
 			logEvent('API_ERROR', `${e.detail.action}: ${e.detail.error}`, 'withdrawn');
 		});
 
 		// Show banner if no consent
-		document.addEventListener('havax-cb:init', function() {
-			if (!havaxCbInstance.hasConsent()) {
-				havaxCbInstance.showBanner();
+		document.addEventListener('chronex-cb:init', function() {
+			if (!chronexCbInstance.hasConsent()) {
+				chronexCbInstance.showBanner();
 			}
 		});
 	</script>

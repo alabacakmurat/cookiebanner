@@ -1,4 +1,4 @@
-# Havax Cookie Banner
+# Chronex Cookie Banner
 
 A flexible, customizable, and GDPR-compliant cookie consent banner for PHP applications.
 
@@ -15,14 +15,14 @@ A flexible, customizable, and GDPR-compliant cookie consent banner for PHP appli
 ## Installation
 
 ```bash
-composer require havax/cookiebanner
+composer require chronex/cookiebanner
 ```
 
 ## Quick Start
 
 ```php
 <?php
-use Havax\CookieBanner\CookieBanner;
+use Chronex\CookieBanner\CookieBanner;
 
 $banner = new CookieBanner([
     'template' => 'modern',
@@ -53,7 +53,7 @@ $banner = new CookieBanner([
     'cookiePolicyUrl' => '/cookies',
 
     // Cookie settings
-    'cookieName' => 'havax_cb_consent',
+    'cookieName' => 'chronex_cb_consent',
     'cookieExpiry' => 365,               // days
     'cookiePath' => '/',
     'cookieDomain' => '',
@@ -67,7 +67,7 @@ $banner = new CookieBanner([
 
     // Assets
     'inlineAssets' => false,             // Inline CSS/JS
-    'assetsUrl' => '/vendor/havax/cookiebanner/assets',
+    'assetsUrl' => '/vendor/chronex/cookiebanner/assets',
 ]);
 ```
 
@@ -126,7 +126,7 @@ $banner->addCategory('social', [
 The most powerful feature for GDPR compliance - log every consent action.
 
 ```php
-use Havax\CookieBanner\Event\ConsentEvent;
+use Chronex\CookieBanner\Event\ConsentEvent;
 
 // When user gives consent for the first time
 $banner->on(ConsentEvent::TYPE_GIVEN, function(ConsentEvent $event) {
@@ -168,18 +168,18 @@ $banner->on(ConsentEvent::TYPE_WITHDRAWN, function(ConsentEvent $event) {
 
 **JavaScript Events:**
 
--   `havax-cb:init` - Banner initialized
--   `havax-cb:consent:given` - Consent given
--   `havax-cb:consent:updated` - Consent updated
--   `havax-cb:consent:withdrawn` - Consent withdrawn
--   `havax-cb:banner:shown` - Banner displayed
--   `havax-cb:banner:hidden` - Banner hidden
--   `havax-cb:preferences:opened` - Preferences modal opened
--   `havax-cb:preferences:closed` - Preferences modal closed
--   `havax-cb:script:loaded` - Script loaded
--   `havax-cb:script:blocked` - Script blocked
--   `havax-cb:category:enabled` - Category enabled
--   `havax-cb:category:disabled` - Category disabled
+-   `chronex-cb:init` - Banner initialized
+-   `chronex-cb:consent:given` - Consent given
+-   `chronex-cb:consent:updated` - Consent updated
+-   `chronex-cb:consent:withdrawn` - Consent withdrawn
+-   `chronex-cb:banner:shown` - Banner displayed
+-   `chronex-cb:banner:hidden` - Banner hidden
+-   `chronex-cb:preferences:opened` - Preferences modal opened
+-   `chronex-cb:preferences:closed` - Preferences modal closed
+-   `chronex-cb:script:loaded` - Script loaded
+-   `chronex-cb:script:blocked` - Script blocked
+-   `chronex-cb:category:enabled` - Category enabled
+-   `chronex-cb:category:disabled` - Category disabled
 
 ## Script Blocking
 
@@ -205,10 +205,10 @@ echo $banner->renderAllScripts();
 
 ### JavaScript-based Blocking
 
-Add `type="text/plain"` and `data-havax-cb-category` to any script:
+Add `type="text/plain"` and `data-chronex-cb-category` to any script:
 
 ```html
-<script type="text/plain" data-havax-cb-category="analytics">
+<script type="text/plain" data-chronex-cb-category="analytics">
     // This won't execute until analytics consent is given
     gtag('js', new Date());
 </script>
@@ -227,28 +227,28 @@ The following third-party scripts are automatically detected and blocked:
 
 ```javascript
 // Check consent
-havaxCbInstance.hasConsent(); // Boolean
-havaxCbInstance.hasConsentFor("analytics"); // Boolean
-havaxCbInstance.getAcceptedCategories(); // Array
-havaxCbInstance.getRejectedCategories(); // Array
+chronexCbInstance.hasConsent(); // Boolean
+chronexCbInstance.hasConsentFor("analytics"); // Boolean
+chronexCbInstance.getAcceptedCategories(); // Array
+chronexCbInstance.getRejectedCategories(); // Array
 
 // Control banner
-havaxCbInstance.showBanner();
-havaxCbInstance.hideBanner();
-havaxCbInstance.showPreferences();
-havaxCbInstance.closePreferences();
+chronexCbInstance.showBanner();
+chronexCbInstance.hideBanner();
+chronexCbInstance.showPreferences();
+chronexCbInstance.closePreferences();
 
 // Consent actions
-havaxCbInstance.acceptAll();
-havaxCbInstance.rejectAll();
-havaxCbInstance.withdrawConsent();
+chronexCbInstance.acceptAll();
+chronexCbInstance.rejectAll();
+chronexCbInstance.withdrawConsent();
 
 // Get consent data
-havaxCbInstance.getConsentData();
-havaxCbInstance.getConsentProof();
+chronexCbInstance.getConsentData();
+chronexCbInstance.getConsentProof();
 
 // Event listeners
-havaxCbInstance.on("consent.given", (data) => {
+chronexCbInstance.on("consent.given", (data) => {
     console.log("Consent given:", data);
 });
 ```
@@ -296,7 +296,7 @@ $banner->registerLanguage('ja', [
 Create your own template:
 
 ```php
-use Havax\CookieBanner\Template\AbstractTemplate;
+use Chronex\CookieBanner\Template\AbstractTemplate;
 
 class MyCustomTemplate extends AbstractTemplate
 {
@@ -383,13 +383,13 @@ Override CSS variables:
 
 ```css
 :root {
-    --havax-cb-primary: #2563eb;
-    --havax-cb-primary-hover: #1d4ed8;
-    --havax-cb-background: #ffffff;
-    --havax-cb-text: #1e293b;
-    --havax-cb-border: #e2e8f0;
-    --havax-cb-radius: 8px;
-    --havax-cb-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --chronex-cb-primary: #2563eb;
+    --chronex-cb-primary-hover: #1d4ed8;
+    --chronex-cb-background: #ffffff;
+    --chronex-cb-text: #1e293b;
+    --chronex-cb-border: #e2e8f0;
+    --chronex-cb-radius: 8px;
+    --chronex-cb-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 ```
 
@@ -412,4 +412,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Credits
 
-Developed by [Havax](https://github.com/alabacakmurat)
+Developed by [Chronex](https://github.com/alabacakmurat)

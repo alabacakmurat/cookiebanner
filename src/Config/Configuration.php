@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner\Config;
+namespace Chronex\CookieBanner\Config;
 
 use InvalidArgumentException;
 
@@ -11,7 +11,7 @@ class Configuration
 	private string $template = 'modern';
 	private string $position = 'bottom';
 	private string $language = 'en';
-	private string $cookieName = 'havax_cb_consent';
+	private string $cookieName = 'chronex_cb_consent';
 	private int $cookieExpiry = 365;
 	private string $cookiePath = '/';
 	private string $cookieDomain = '';

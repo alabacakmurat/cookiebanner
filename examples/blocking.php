@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Havax Cookie Banner - Blocking Mode Example
+ * Chronex Cookie Banner - Blocking Mode Example
  *
  * This example demonstrates blocking mode where users MUST accept cookies
  * before they can use the website. The site is completely inaccessible
@@ -10,7 +10,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Havax\CookieBanner\CookieBanner;
+use Chronex\CookieBanner\CookieBanner;
 
 // Initialize with blocking mode enabled
 $banner = new CookieBanner([
@@ -51,7 +51,7 @@ $consent = $banner->getConsent();
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blocking Mode - Havax Cookie Banner</title>
+	<title>Blocking Mode - Chronex Cookie Banner</title>
 	<?= $banner->renderCss() ?>
 	<style>
 		* {
@@ -269,11 +269,11 @@ $consent = $banner->getConsent();
 
 			<div class="btn-group">
 				<?php if ($hasConsent): ?>
-					<button class="btn btn-danger" onclick="havaxCbInstance.withdrawConsent()">
+					<button class="btn btn-danger" onclick="chronexCbInstance.withdrawConsent()">
 						Withdraw Consent (Re-block Site)
 					</button>
 				<?php else: ?>
-					<button class="btn btn-primary" onclick="havaxCbInstance.showBanner()">
+					<button class="btn btn-primary" onclick="chronexCbInstance.showBanner()">
 						Show Consent Dialog
 					</button>
 				<?php endif; ?>
@@ -351,18 +351,18 @@ echo $banner->renderJs();</pre>
 
 	<script>
 		// Auto-show banner if no consent (blocking mode will handle this automatically)
-		document.addEventListener('havax-cb:init', function() {
-			if (!havaxCbInstance.hasConsent()) {
-				havaxCbInstance.showBanner();
+		document.addEventListener('chronex-cb:init', function() {
+			if (!chronexCbInstance.hasConsent()) {
+				chronexCbInstance.showBanner();
 			}
 		});
 
 		// Reload page when consent changes
-		document.addEventListener('havax-cb:consent:given', function() {
+		document.addEventListener('chronex-cb:consent:given', function() {
 			setTimeout(() => location.reload(), 500);
 		});
 
-		document.addEventListener('havax-cb:consent:withdrawn', function() {
+		document.addEventListener('chronex-cb:consent:withdrawn', function() {
 			setTimeout(() => location.reload(), 500);
 		});
 	</script>

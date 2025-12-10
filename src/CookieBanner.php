@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Havax\CookieBanner;
+namespace Chronex\CookieBanner;
 
-use Havax\CookieBanner\Config\Configuration;
-use Havax\CookieBanner\Consent\ConsentManager;
-use Havax\CookieBanner\Consent\ConsentData;
-use Havax\CookieBanner\Event\EventDispatcher;
-use Havax\CookieBanner\Event\EventInterface;
-use Havax\CookieBanner\Event\BannerEvent;
-use Havax\CookieBanner\Language\TranslationManager;
-use Havax\CookieBanner\Template\TemplateManager;
-use Havax\CookieBanner\Template\TemplateInterface;
-use Havax\CookieBanner\ScriptBlocker\ScriptBlocker;
+use Chronex\CookieBanner\Config\Configuration;
+use Chronex\CookieBanner\Consent\ConsentManager;
+use Chronex\CookieBanner\Consent\ConsentData;
+use Chronex\CookieBanner\Event\EventDispatcher;
+use Chronex\CookieBanner\Event\EventInterface;
+use Chronex\CookieBanner\Event\BannerEvent;
+use Chronex\CookieBanner\Language\TranslationManager;
+use Chronex\CookieBanner\Template\TemplateManager;
+use Chronex\CookieBanner\Template\TemplateInterface;
+use Chronex\CookieBanner\ScriptBlocker\ScriptBlocker;
 
 class CookieBanner
 {
@@ -452,14 +452,14 @@ class CookieBanner
 		if ($this->inlineAssets) {
 			$css = $this->templateManager->getCssContent($template);
 			if ($css) {
-				return "<style id=\"havax-cb-cookie-banner-css\">\n{$css}\n</style>";
+				return "<style id=\"chronex-cb-cookie-banner-css\">\n{$css}\n</style>";
 			}
 			return '';
 		}
 
 		if ($this->assetsUrl) {
 			return sprintf(
-				'<link rel="stylesheet" href="%s/css/%s.css" id="havax-cb-cookie-banner-css">',
+				'<link rel="stylesheet" href="%s/css/%s.css" id="chronex-cb-cookie-banner-css">',
 				htmlspecialchars($this->assetsUrl),
 				htmlspecialchars($template)
 			);
@@ -468,7 +468,7 @@ class CookieBanner
 		// Fallback: inline CSS
 		$css = $this->templateManager->getCssContent($template);
 		if ($css) {
-			return "<style id=\"havax-cb-cookie-banner-css\">\n{$css}\n</style>";
+			return "<style id=\"chronex-cb-cookie-banner-css\">\n{$css}\n</style>";
 		}
 
 		return '';
@@ -482,17 +482,17 @@ class CookieBanner
 		$jsConfig = $this->getJavaScriptConfig();
 		$configJson = json_encode($jsConfig, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
 
-		$output = "<script>window.havaxCbConfig = {$configJson};</script>\n";
+		$output = "<script>window.chronexCbConfig = {$configJson};</script>\n";
 
 		if ($this->inlineAssets) {
 			$jsPath = $this->findAssetFile('js/cookiebanner.js');
 			if ($jsPath && file_exists($jsPath)) {
 				$js = file_get_contents($jsPath);
-				$output .= "<script id=\"havax-cb-cookie-banner-js\">\n{$js}\n</script>";
+				$output .= "<script id=\"chronex-cb-cookie-banner-js\">\n{$js}\n</script>";
 			}
 		} elseif ($this->assetsUrl) {
 			$output .= sprintf(
-				'<script src="%s/js/cookiebanner.js" id="havax-cb-cookie-banner-js"></script>',
+				'<script src="%s/js/cookiebanner.js" id="chronex-cb-cookie-banner-js"></script>',
 				htmlspecialchars($this->assetsUrl)
 			);
 		} else {
@@ -500,7 +500,7 @@ class CookieBanner
 			$jsPath = $this->findAssetFile('js/cookiebanner.js');
 			if ($jsPath && file_exists($jsPath)) {
 				$js = file_get_contents($jsPath);
-				$output .= "<script id=\"havax-cb-cookie-banner-js\">\n{$js}\n</script>";
+				$output .= "<script id=\"chronex-cb-cookie-banner-js\">\n{$js}\n</script>";
 			}
 		}
 

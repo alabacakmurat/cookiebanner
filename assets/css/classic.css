@@ -1,75 +1,75 @@
 /**
- * Havax Cookie Banner - Classic Template Styles
+ * Chronex Cookie Banner - Classic Template Styles
  * Full-width banner at top or bottom
  * Note: base.css is automatically included by TemplateManager
  */
 
 /* Classic Banner */
-.havax-cb-cookie-banner.havax-cb-classic {
+.chronex-cb-cookie-banner.chronex-cb-classic {
     left: 0;
     right: 0;
-    background: var(--havax-cb-background);
-    box-shadow: var(--havax-cb-shadow-lg);
+    background: var(--chronex-cb-background);
+    box-shadow: var(--chronex-cb-shadow-lg);
 }
 
-.havax-cb-cookie-banner.havax-cb-classic.havax-cb-position-top {
+.chronex-cb-cookie-banner.chronex-cb-classic.chronex-cb-position-top {
     top: 0;
     transform: translateY(-100%);
 }
 
-.havax-cb-cookie-banner.havax-cb-classic.havax-cb-position-top.havax-cb-visible {
+.chronex-cb-cookie-banner.chronex-cb-classic.chronex-cb-position-top.chronex-cb-visible {
     transform: translateY(0);
 }
 
-.havax-cb-cookie-banner.havax-cb-classic.havax-cb-position-bottom {
+.chronex-cb-cookie-banner.chronex-cb-classic.chronex-cb-position-bottom {
     bottom: 0;
     transform: translateY(100%);
 }
 
-.havax-cb-cookie-banner.havax-cb-classic.havax-cb-position-bottom.havax-cb-visible {
+.chronex-cb-cookie-banner.chronex-cb-classic.chronex-cb-position-bottom.chronex-cb-visible {
     transform: translateY(0);
 }
 
 /* Container */
-.havax-cb-classic .havax-cb-cookie-container {
+.chronex-cb-classic .chronex-cb-cookie-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 20px 24px;
 }
 
 /* Content */
-.havax-cb-classic .havax-cb-cookie-content {
+.chronex-cb-classic .chronex-cb-cookie-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
 }
 
-.havax-cb-classic .havax-cb-cookie-text {
+.chronex-cb-classic .chronex-cb-cookie-text {
     flex: 1;
     min-width: 0;
 }
 
-.havax-cb-classic .havax-cb-cookie-title {
+.chronex-cb-classic .chronex-cb-cookie-title {
     font-size: 16px;
     font-weight: 600;
     margin: 0 0 8px 0;
 }
 
-.havax-cb-classic .havax-cb-cookie-description {
+.chronex-cb-classic .chronex-cb-cookie-description {
     font-size: 14px;
-    color: var(--havax-cb-text-muted);
+    color: var(--chronex-cb-text-muted);
     margin: 0 0 8px 0;
     max-width: 800px;
 }
 
-.havax-cb-classic .havax-cb-cookie-links {
+.chronex-cb-classic .chronex-cb-cookie-links {
     font-size: 13px;
     margin: 0;
 }
 
 /* Actions */
-.havax-cb-classic .havax-cb-cookie-actions {
+.chronex-cb-classic .chronex-cb-cookie-actions {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -78,33 +78,33 @@
 
 /* Responsive */
 @media (max-width: 900px) {
-    .havax-cb-classic .havax-cb-cookie-content {
+    .chronex-cb-classic .chronex-cb-cookie-content {
         flex-direction: column;
         align-items: stretch;
         text-align: center;
     }
 
-    .havax-cb-classic .havax-cb-cookie-description {
+    .chronex-cb-classic .chronex-cb-cookie-description {
         max-width: none;
     }
 
-    .havax-cb-classic .havax-cb-cookie-actions {
+    .chronex-cb-classic .chronex-cb-cookie-actions {
         justify-content: center;
         flex-wrap: wrap;
     }
 }
 
 @media (max-width: 480px) {
-    .havax-cb-classic .havax-cb-cookie-container {
+    .chronex-cb-classic .chronex-cb-cookie-container {
         padding: 16px;
     }
 
-    .havax-cb-classic .havax-cb-cookie-actions {
+    .chronex-cb-classic .chronex-cb-cookie-actions {
         flex-direction: column;
         width: 100%;
     }
 
-    .havax-cb-classic .havax-cb-cookie-actions .havax-cb-btn {
+    .chronex-cb-classic .chronex-cb-cookie-actions .chronex-cb-btn {
         width: 100%;
     }
 }
