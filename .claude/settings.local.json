@@ -10,7 +10,9 @@
       "Bash(git branch:*)",
       "Bash(git push:*)",
       "Bash(git commit:*)",
-      "Bash(git remote set-url:*)"
+      "Bash(git remote set-url:*)",
+      "Bash(gh auth:*)",
+      "Bash(node --check:*)"
     ]
   }
 }
