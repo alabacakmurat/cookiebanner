@@ -70,11 +70,27 @@
 		init() {
 			if (this.isInitialized) return;
 
-			this.loadConsent();
 			this.setupElements();
 			this.bindEvents();
 			this.setupScriptBlocker();
 
+			// Load consent (may be async for server mode)
+			const consentPromise = this.loadConsent();
+
+			// If loadConsent returns a promise (server mode API fetch), wait for it
+			if (consentPromise instanceof Promise) {
+				consentPromise.then(() => {
+					this.completeInitialization();
+				});
+			} else {
+				this.completeInitialization();
+			}
+		}
+
+		/**
+		 * Complete initialization after consent is loaded
+		 */
+		completeInitialization() {
 			// Handle blocking mode
 			if (this.config.blockingMode) {
 				this.setupBlockingMode();
@@ -147,6 +163,7 @@
 
 		/**
 		 * Load existing consent from storage
+		 * @returns {Promise|undefined} Returns a Promise if async fetch is needed
 		 */
 		loadConsent() {
 			// First, check if initial consent was provided from server
@@ -170,11 +187,8 @@
 				try {
 					const result = this.config.storageGetter(cookieValue);
 					if (result instanceof Promise) {
-						result.then(data => {
+						return result.then(data => {
 							this.consent = data;
-							if (this.hasConsent()) {
-								this.activateConsentedScripts();
-							}
 						}).catch(() => {
 							this.consent = null;
 						});
@@ -193,7 +207,7 @@
 				// Token exists but consent not pre-loaded
 				// Fetch from API if available
 				if (this.config.apiUrl) {
-					this.fetchConsentFromApi(cookieValue);
+					return this.fetchConsentFromApi(cookieValue);
 				}
 				return;
 			}
@@ -215,9 +229,6 @@
 				.then(result => {
 					if (result && result.success && result.data) {
 						this.consent = result.data;
-						if (this.hasConsent()) {
-							this.activateConsentedScripts();
-						}
 					}
 					return this.consent;
 				})
