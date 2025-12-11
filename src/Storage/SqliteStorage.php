@@ -220,13 +220,19 @@ class SqliteStorage implements StorageInterface
 		$metadata = json_decode($row['metadata'] ?? '[]', true) ?? [];
 		$previousConsent = $row['previous_consent'] ? json_decode($row['previous_consent'], true) : null;
 
+		// Parse timestamp from database
+		$timestamp = null;
+		if (!empty($row['created_at'])) {
+			$timestamp = new \DateTimeImmutable($row['created_at']);
+		}
+
 		return new ConsentData(
 			$acceptedCategories,
 			$rejectedCategories,
 			$row['consent_id'],
 			$row['user_identifier'],
-			$row['ip_address'],
-			$row['consent_method'],
+			$timestamp,
+			$row['consent_method'] ?? 'banner',
 			$previousConsent,
 			$metadata
 		);

@@ -13,6 +13,12 @@
  * - Statistics and export functionality
  */
 
+// Suppress HTML error output for API requests
+if (isset($_GET['api'])) {
+	ini_set('display_errors', '0');
+	error_reporting(0);
+}
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Chronex\CookieBanner\CookieBanner;
@@ -105,9 +111,18 @@ $banner->on(ConsentEvent::TYPE_WITHDRAWN, function (ConsentEvent $event) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api'])) {
 	header('Content-Type: application/json');
-	$request = json_decode(file_get_contents('php://input'), true) ?? $_POST;
-	$response = $banner->handleApiRequest($request);
-	echo json_encode($response);
+
+	try {
+		$request = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+		$response = $banner->handleApiRequest($request);
+		echo json_encode($response);
+	} catch (\Throwable $e) {
+		echo json_encode([
+			'success' => false,
+			'error' => $e->getMessage(),
+			'trace' => $e->getTraceAsString(),
+		]);
+	}
 	exit;
 }
 
