@@ -11,15 +11,17 @@
  * @var string|null $privacyPolicyUrl
  * @var string|null $cookiePolicyUrl
  * @var bool $showPreferencesButton
+ * @var bool $shouldShowBanner
  * @var callable $t
  */
 ?>
 <div id="chronex-cb-cookie-banner"
-	class="chronex-cb-cookie-banner chronex-cb-classic chronex-cb-position-<?= htmlspecialchars($position) ?>"
+	class="chronex-cb-cookie-banner chronex-cb-classic chronex-cb-position-<?= htmlspecialchars($position) ?><?= $shouldShowBanner ? ' chronex-cb-visible' : '' ?>"
 	role="dialog"
 	aria-modal="true"
 	aria-labelledby="chronex-cb-cookie-title"
 	aria-describedby="chronex-cb-cookie-description"
+	aria-hidden="<?= $shouldShowBanner ? 'false' : 'true' ?>"
 	data-template="classic">
 
 	<div class="chronex-cb-cookie-container">

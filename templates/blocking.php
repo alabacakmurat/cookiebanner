@@ -11,16 +11,18 @@
 /** @var string $position */
 /** @var string|null $privacyPolicyUrl */
 /** @var string|null $cookiePolicyUrl */
+/** @var bool $shouldShowBanner */
 /** @var callable $t */
 /** @var \Chronex\CookieBanner\Config\Configuration $config */
 ?>
 <!-- Chronex Cookie Banner - Blocking Mode -->
 <div id="chronex-cb-cookie-banner"
-	class="chronex-cb-cookie-banner chronex-cb-blocking"
+	class="chronex-cb-cookie-banner chronex-cb-blocking<?= $shouldShowBanner ? ' chronex-cb-visible' : '' ?>"
 	role="dialog"
 	aria-modal="true"
 	aria-labelledby="chronex-cb-blocking-title"
 	aria-describedby="chronex-cb-blocking-description"
+	aria-hidden="<?= $shouldShowBanner ? 'false' : 'true' ?>"
 	data-blocking="true">
 
 	<!-- Full Screen Overlay -->

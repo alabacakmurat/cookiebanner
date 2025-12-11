@@ -87,6 +87,10 @@ abstract class AbstractTemplate implements TemplateInterface
 
 	protected function prepareData(Configuration $config, array $translations, array $consentData): array
 	{
+		// Determine if banner should be visible on initial render
+		// Banner should be hidden if user already has consent
+		$shouldShowBanner = !($consentData['hasConsent'] ?? false);
+
 		return [
 			'config' => $config,
 			'translations' => $translations,
@@ -96,6 +100,7 @@ abstract class AbstractTemplate implements TemplateInterface
 			'privacyPolicyUrl' => $config->getPrivacyPolicyUrl(),
 			'cookiePolicyUrl' => $config->getCookiePolicyUrl(),
 			'showPreferencesButton' => $config->isShowPreferencesButton(),
+			'shouldShowBanner' => $shouldShowBanner,
 			'templateName' => $this->getName(),
 			't' => fn(string $key, ?string $default = null) => $translations[$key] ?? $default ?? $key,
 		];
