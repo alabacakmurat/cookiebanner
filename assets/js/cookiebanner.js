@@ -57,6 +57,7 @@
 			this.preferencesModal = null;
 			this.floatingPanel = null;
 			this.isInitialized = false;
+			this.isDomReady = false;
 			this.blockedScripts = [];
 			this.loadedScripts = [];
 			this.observers = [];
@@ -66,24 +67,44 @@
 
 		/**
 		 * Initialize the cookie banner
+		 * Split into two phases:
+		 * 1. Early init (script blocker) - runs immediately to intercept scripts
+		 * 2. DOM init (UI elements) - waits for DOM to be ready
 		 */
 		init() {
 			if (this.isInitialized) return;
 
-			this.setupElements();
-			this.bindEvents();
+			// Phase 1: Setup script blocker immediately (can run before DOM is ready)
+			// This is critical for blocking scripts in <head>
 			this.setupScriptBlocker();
 
-			// Load consent (may be async for server mode)
+			// Load consent early (needed for script blocking decisions)
 			const consentPromise = this.loadConsent();
 
-			// If loadConsent returns a promise (server mode API fetch), wait for it
-			if (consentPromise instanceof Promise) {
-				consentPromise.then(() => {
+			// Phase 2: Setup DOM-dependent features when DOM is ready
+			const initDom = () => {
+				if (this.isDomReady) return;
+				this.isDomReady = true;
+
+				this.setupElements();
+				this.bindEvents();
+
+				// If consent was loaded via promise, wait for it
+				if (consentPromise instanceof Promise) {
+					consentPromise.then(() => {
+						this.completeInitialization();
+					});
+				} else {
 					this.completeInitialization();
-				});
+				}
+			};
+
+			// Check if DOM is already ready
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', initDom);
 			} else {
-				this.completeInitialization();
+				// DOM is already ready
+				initDom();
 			}
 		}
 
