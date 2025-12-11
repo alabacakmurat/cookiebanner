@@ -424,6 +424,17 @@ class CookieBanner
 	}
 
 	/**
+	 * Get debug information about consent loading state.
+	 * Useful for troubleshooting why consent is not being detected.
+	 *
+	 * @return array
+	 */
+	public function getDebugInfo(): array
+	{
+		return $this->consentManager->getDebugInfo();
+	}
+
+	/**
 	 * Set user identifier to associate consent with a logged-in user
 	 *
 	 * @param string|null $identifier User ID, email hash, or any unique identifier

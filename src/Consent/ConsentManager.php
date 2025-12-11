@@ -53,6 +53,8 @@ class ConsentManager
 	private function loadCurrentConsent(): void
 	{
 		$cookieName = $this->config->getCookieName();
+		$this->currentConsent = null;
+		$this->currentToken = null;
 
 		if (isset($_COOKIE[$cookieName])) {
 			try {
@@ -71,6 +73,27 @@ class ConsentManager
 	public function hasConsent(): bool
 	{
 		return $this->currentConsent !== null;
+	}
+
+	/**
+	 * Get debug information about consent loading state.
+	 * Useful for troubleshooting why consent is not being detected.
+	 *
+	 * @return array
+	 */
+	public function getDebugInfo(): array
+	{
+		$cookieName = $this->config->getCookieName();
+
+		return [
+			'cookie_name' => $cookieName,
+			'cookie_exists' => isset($_COOKIE[$cookieName]),
+			'cookie_value' => isset($_COOKIE[$cookieName]) ? substr($_COOKIE[$cookieName], 0, 20) . '...' : null,
+			'current_token' => $this->currentToken ? substr($this->currentToken, 0, 20) . '...' : null,
+			'has_consent' => $this->hasConsent(),
+			'storage_class' => get_class($this->storage),
+			'consent_id' => $this->currentConsent?->getConsentId(),
+		];
 	}
 
 	public function getCurrentConsent(): ?ConsentData
