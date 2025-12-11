@@ -31,6 +31,8 @@ class Configuration
 	private bool $collectAnonymousStats = false;
 	private bool $blockingMode = false;
 	private ?string $blockingMessage = null;
+	private string $storageEncryptionKey = '';
+	private string $storageType = 'legacy'; // 'legacy', 'encrypted', 'session', 'callback'
 
 	public function __construct(array $config = [])
 	{
@@ -395,6 +397,34 @@ class Configuration
 		return $this;
 	}
 
+	public function getStorageEncryptionKey(): string
+	{
+		return $this->storageEncryptionKey;
+	}
+
+	public function setStorageEncryptionKey(string $key): self
+	{
+		$this->storageEncryptionKey = $key;
+		return $this;
+	}
+
+	public function getStorageType(): string
+	{
+		return $this->storageType;
+	}
+
+	public function setStorageType(string $type): self
+	{
+		$validTypes = ['legacy', 'encrypted', 'session', 'callback'];
+		if (!in_array($type, $validTypes)) {
+			throw new InvalidArgumentException(
+				"Invalid storage type: {$type}. Valid: " . implode(', ', $validTypes)
+			);
+		}
+		$this->storageType = $type;
+		return $this;
+	}
+
 	public function toArray(): array
 	{
 		return [
@@ -417,6 +447,7 @@ class Configuration
 			'hashAlgorithm' => $this->hashAlgorithm,
 			'blockingMode' => $this->blockingMode,
 			'blockingMessage' => $this->blockingMessage,
+			'storageType' => $this->storageType,
 		];
 	}
 }

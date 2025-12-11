@@ -7,6 +7,8 @@ namespace Chronex\CookieBanner\Consent;
 use Chronex\CookieBanner\Config\Configuration;
 use Chronex\CookieBanner\Event\EventDispatcher;
 use Chronex\CookieBanner\Event\ConsentEvent;
+use Chronex\CookieBanner\Storage\StorageInterface;
+use Chronex\CookieBanner\Storage\LegacyStorage;
 
 class ConsentManager
 {
@@ -14,11 +16,14 @@ class ConsentManager
 	private EventDispatcher $eventDispatcher;
 	private ?ConsentData $currentConsent = null;
 	private ?string $userIdentifier = null;
+	private StorageInterface $storage;
+	private ?string $currentToken = null;
 
-	public function __construct(Configuration $config, EventDispatcher $eventDispatcher)
+	public function __construct(Configuration $config, EventDispatcher $eventDispatcher, ?StorageInterface $storage = null)
 	{
 		$this->config = $config;
 		$this->eventDispatcher = $eventDispatcher;
+		$this->storage = $storage ?? new LegacyStorage();
 		$this->loadCurrentConsent();
 	}
 
@@ -51,12 +56,14 @@ class ConsentManager
 
 		if (isset($_COOKIE[$cookieName])) {
 			try {
-				$data = json_decode(base64_decode($_COOKIE[$cookieName]), true);
-				if ($data && is_array($data)) {
-					$this->currentConsent = ConsentData::fromArray($data);
-				}
+				$token = $_COOKIE[$cookieName];
+				$this->currentToken = $token;
+
+				// Retrieve consent data from storage using the token
+				$this->currentConsent = $this->storage->retrieve($token);
 			} catch (\Throwable $e) {
 				$this->currentConsent = null;
+				$this->currentToken = null;
 			}
 		}
 	}
@@ -115,6 +122,15 @@ class ConsentManager
 
 		$this->currentConsent = $consentData;
 
+		// Store consent and update token
+		if ($isUpdate && $this->currentToken !== null) {
+			// Update existing storage
+			$this->storage->update($this->currentToken, $consentData);
+		} else {
+			// Store new consent
+			$this->currentToken = $this->storage->store($consentData);
+		}
+
 		// Dispatch event
 		$event = new ConsentEvent(
 			$isUpdate ? ConsentEvent::TYPE_UPDATED : ConsentEvent::TYPE_GIVEN,
@@ -164,6 +180,12 @@ class ConsentManager
 			$metadata
 		);
 
+		// Delete from storage
+		if ($this->currentToken !== null) {
+			$this->storage->delete($this->currentToken);
+			$this->currentToken = null;
+		}
+
 		$this->currentConsent = null;
 		$this->eventDispatcher->dispatch($event);
 	}
@@ -198,13 +220,97 @@ class ConsentManager
 		return $this->currentConsent->getRejectedCategories();
 	}
 
+	/**
+	 * Generate the cookie value (opaque token) for the current consent.
+	 *
+	 * @return string The storage token to be stored in the cookie
+	 */
 	public function generateConsentCookieValue(): string
 	{
 		if ($this->currentConsent === null) {
 			return '';
 		}
 
-		return base64_encode(json_encode($this->currentConsent->toArray()));
+		// If we have an existing token and just updated the consent, return that token
+		if ($this->currentToken !== null) {
+			return $this->currentToken;
+		}
+
+		// Store consent and get a new token
+		$this->currentToken = $this->storage->store($this->currentConsent);
+
+		return $this->currentToken;
+	}
+
+	/**
+	 * Store the current consent and return the storage token.
+	 *
+	 * @return string|null The storage token or null if no consent
+	 */
+	public function storeConsent(): ?string
+	{
+		if ($this->currentConsent === null) {
+			return null;
+		}
+
+		// If updating existing consent
+		if ($this->currentToken !== null && $this->storage->exists($this->currentToken)) {
+			$this->storage->update($this->currentToken, $this->currentConsent);
+			return $this->currentToken;
+		}
+
+		// Store new consent
+		$this->currentToken = $this->storage->store($this->currentConsent);
+		return $this->currentToken;
+	}
+
+	/**
+	 * Get the current storage token.
+	 *
+	 * @return string|null
+	 */
+	public function getCurrentToken(): ?string
+	{
+		return $this->currentToken;
+	}
+
+	/**
+	 * Delete the stored consent.
+	 *
+	 * @return bool
+	 */
+	public function deleteStoredConsent(): bool
+	{
+		if ($this->currentToken === null) {
+			return false;
+		}
+
+		$result = $this->storage->delete($this->currentToken);
+		$this->currentToken = null;
+
+		return $result;
+	}
+
+	/**
+	 * Get the storage backend.
+	 *
+	 * @return StorageInterface
+	 */
+	public function getStorage(): StorageInterface
+	{
+		return $this->storage;
+	}
+
+	/**
+	 * Set the storage backend.
+	 *
+	 * @param StorageInterface $storage
+	 * @return self
+	 */
+	public function setStorage(StorageInterface $storage): self
+	{
+		$this->storage = $storage;
+		return $this;
 	}
 
 	public function getCookieSettings(): array

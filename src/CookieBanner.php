@@ -14,6 +14,11 @@ use Chronex\CookieBanner\Language\TranslationManager;
 use Chronex\CookieBanner\Template\TemplateManager;
 use Chronex\CookieBanner\Template\TemplateInterface;
 use Chronex\CookieBanner\ScriptBlocker\ScriptBlocker;
+use Chronex\CookieBanner\Storage\StorageInterface;
+use Chronex\CookieBanner\Storage\SessionStorage;
+use Chronex\CookieBanner\Storage\CallbackStorage;
+use Chronex\CookieBanner\Storage\NullStorage;
+use Chronex\CookieBanner\Storage\LegacyStorage;
 
 class CookieBanner
 {
@@ -28,12 +33,16 @@ class CookieBanner
 	private string $defaultAssetsPath;
 	private ?string $customAssetsPath = null;
 	private ?string $apiUrl = null;
+	private ?StorageInterface $storage = null;
 
 	public function __construct(array $config = [])
 	{
 		$this->config = new Configuration($config);
 		$this->eventDispatcher = new EventDispatcher();
-		$this->consentManager = new ConsentManager($this->config, $this->eventDispatcher);
+
+		// Initialize storage based on configuration
+		$this->storage = $this->createStorage($config);
+		$this->consentManager = new ConsentManager($this->config, $this->eventDispatcher, $this->storage);
 
 		// Store default and custom asset paths
 		$this->defaultAssetsPath = dirname(__DIR__) . '/assets';
@@ -76,6 +85,104 @@ class CookieBanner
 		if ($this->config->isBlockingMode() && !isset($config['template'])) {
 			$this->config->setTemplate('blocking');
 		}
+	}
+
+	/**
+	 * Create storage backend based on configuration
+	 */
+	private function createStorage(array $config): StorageInterface
+	{
+		// If a storage instance is provided directly, use it
+		if (isset($config['storage']) && $config['storage'] instanceof StorageInterface) {
+			return $config['storage'];
+		}
+
+		// If storage callbacks are provided, use CallbackStorage
+		if (isset($config['storageCallbacks'])) {
+			return CallbackStorage::fromArray(
+				$config['storageCallbacks'],
+				$config['storageEncryptionKey'] ?? ''
+			);
+		}
+
+		// Based on storage type setting
+		$storageType = $config['storageType'] ?? $this->config->getStorageType();
+		$encryptionKey = $config['storageEncryptionKey'] ?? $this->config->getStorageEncryptionKey();
+
+		switch ($storageType) {
+			case 'session':
+				return new SessionStorage($encryptionKey);
+
+			case 'callback':
+				throw new \InvalidArgumentException(
+					'storageType "callback" requires storageCallbacks configuration'
+				);
+
+			case 'encrypted':
+				return new NullStorage($encryptionKey);
+
+			case 'legacy':
+			default:
+				// Default to legacy for backwards compatibility
+				return new LegacyStorage();
+		}
+	}
+
+	/**
+	 * Set custom storage backend
+	 */
+	public function setStorage(StorageInterface $storage): self
+	{
+		$this->storage = $storage;
+		$this->consentManager->setStorage($storage);
+		return $this;
+	}
+
+	/**
+	 * Get current storage backend
+	 */
+	public function getStorage(): StorageInterface
+	{
+		return $this->storage;
+	}
+
+	/**
+	 * Set storage callbacks for custom backends (database, Redis, etc.)
+	 *
+	 * @param callable $store Function to store consent: (ConsentData, string $token) => ?string
+	 * @param callable $retrieve Function to retrieve consent: (string $token) => ?array
+	 * @param callable $delete Function to delete consent: (string $token) => bool
+	 * @param string $secretKey Secret key for token generation
+	 */
+	public function setStorageCallbacks(
+		callable $store,
+		callable $retrieve,
+		callable $delete,
+		string $secretKey = ''
+	): self {
+		$this->storage = new CallbackStorage($store, $retrieve, $delete, null, null, $secretKey);
+		$this->consentManager->setStorage($this->storage);
+		return $this;
+	}
+
+	/**
+	 * Use session-based storage
+	 */
+	public function useSessionStorage(string $secretKey = ''): self
+	{
+		$this->storage = new SessionStorage($secretKey);
+		$this->consentManager->setStorage($this->storage);
+		return $this;
+	}
+
+	/**
+	 * Use encrypted cookie storage (default)
+	 */
+	public function useEncryptedStorage(string $encryptionKey = ''): self
+	{
+		$this->storage = new NullStorage($encryptionKey);
+		$this->consentManager->setStorage($this->storage);
+		return $this;
 	}
 
 	/**
@@ -512,6 +619,25 @@ class CookieBanner
 	 */
 	public function getJavaScriptConfig(): array
 	{
+		// Determine storage mode for JavaScript
+		// 'server' = API handles storage, cookie only has token
+		// 'legacy' = base64 encoded consent in cookie (backwards compatible)
+		$storageMode = $this->apiUrl ? 'server' : 'legacy';
+
+		// Get initial consent data to pass to JavaScript
+		// This avoids requiring an API call on page load
+		$initialConsent = null;
+		$currentConsent = $this->consentManager->getCurrentConsent();
+		if ($currentConsent) {
+			$initialConsent = [
+				'consent_id' => $currentConsent->getConsentId(),
+				'accepted_categories' => $currentConsent->getAcceptedCategories(),
+				'rejected_categories' => $currentConsent->getRejectedCategories(),
+				'timestamp' => $currentConsent->getTimestamp()->format('c'),
+				'consent_method' => $currentConsent->getConsentMethod(),
+			];
+		}
+
 		return [
 			'cookieName' => $this->config->getCookieName(),
 			'cookieExpiry' => $this->config->getCookieExpiry(),
@@ -526,6 +652,8 @@ class CookieBanner
 			'consent' => $this->consentManager->getConsentForJavaScript(),
 			'showBanner' => $this->shouldShowBanner(),
 			'apiUrl' => $this->apiUrl,
+			'storageMode' => $storageMode,
+			'initialConsent' => $initialConsent,
 		];
 	}
 
@@ -588,10 +716,33 @@ class CookieBanner
 
 		switch ($action) {
 			case 'get_consent':
-				$response = [
-					'success' => true,
-					'data' => $this->consentManager->getConsentForJavaScript(),
-				];
+				// Support token-based retrieval
+				$token = $request['token'] ?? null;
+				if ($token && $this->storage) {
+					$consent = $this->storage->retrieve($token);
+					if ($consent) {
+						$response = [
+							'success' => true,
+							'data' => [
+								'consent_id' => $consent->getConsentId(),
+								'accepted_categories' => $consent->getAcceptedCategories(),
+								'rejected_categories' => $consent->getRejectedCategories(),
+								'timestamp' => $consent->getTimestamp()->format('c'),
+								'consent_method' => $consent->getConsentMethod(),
+							],
+						];
+					} else {
+						$response = [
+							'success' => false,
+							'error' => 'Consent not found',
+						];
+					}
+				} else {
+					$response = [
+						'success' => true,
+						'data' => $this->consentManager->getConsentForJavaScript(),
+					];
+				}
 				break;
 
 			case 'give_consent':
@@ -602,10 +753,12 @@ class CookieBanner
 
 				if (!empty($categories)) {
 					$consent = $this->consentManager->giveConsent($categories, $method, $metadata, $previousConsent);
+					$token = $this->consentManager->getCurrentToken();
 					$response = [
 						'success' => true,
 						'data' => $consent->toArray(),
-						'cookie' => $this->consentManager->generateConsentCookieValue(),
+						'cookie' => $token, // Now returns opaque token
+						'token' => $token,
 						'cookieSettings' => $this->consentManager->getCookieSettings(),
 					];
 				}
@@ -615,10 +768,12 @@ class CookieBanner
 				$method = $request['method'] ?? 'api';
 				$metadata = $request['metadata'] ?? [];
 				$consent = $this->consentManager->acceptAll($method, $metadata);
+				$token = $this->consentManager->getCurrentToken();
 				$response = [
 					'success' => true,
 					'data' => $consent->toArray(),
-					'cookie' => $this->consentManager->generateConsentCookieValue(),
+					'cookie' => $token,
+					'token' => $token,
 					'cookieSettings' => $this->consentManager->getCookieSettings(),
 				];
 				break;
@@ -627,10 +782,12 @@ class CookieBanner
 				$method = $request['method'] ?? 'api';
 				$metadata = $request['metadata'] ?? [];
 				$consent = $this->consentManager->rejectAll($method, $metadata);
+				$token = $this->consentManager->getCurrentToken();
 				$response = [
 					'success' => true,
 					'data' => $consent->toArray(),
-					'cookie' => $this->consentManager->generateConsentCookieValue(),
+					'cookie' => $token,
+					'token' => $token,
 					'cookieSettings' => $this->consentManager->getCookieSettings(),
 				];
 				break;

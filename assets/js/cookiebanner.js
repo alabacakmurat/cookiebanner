@@ -21,6 +21,10 @@
 		categories: {},
 		blockerPatterns: [],
 		apiUrl: null, // URL for PHP API endpoint (e.g., '?api=1' or '/api/consent')
+		storageMode: 'server', // 'server' (API-based) or 'legacy' (base64 cookie)
+		initialConsent: null, // Pre-loaded consent data from server
+		storageGetter: null, // Custom getter callback: (token) => consentData | null
+		storageSetter: null, // Custom setter callback: (consentData) => token | null
 		onConsentGiven: null,
 		onConsentUpdated: null,
 		onConsentWithdrawn: null,
@@ -48,6 +52,7 @@
 		constructor(config = {}) {
 			this.config = { ...DEFAULT_CONFIG, ...config };
 			this.consent = null;
+			this.consentToken = null; // Opaque token stored in cookie
 			this.banner = null;
 			this.preferencesModal = null;
 			this.floatingPanel = null;
@@ -141,17 +146,85 @@
 		}
 
 		/**
-		 * Load existing consent from cookie
+		 * Load existing consent from storage
 		 */
 		loadConsent() {
+			// First, check if initial consent was provided from server
+			if (this.config.initialConsent) {
+				this.consent = this.config.initialConsent;
+				this.consentToken = this.getCookie(this.config.cookieName);
+				return;
+			}
+
 			const cookieValue = this.getCookie(this.config.cookieName);
-			if (cookieValue) {
+			if (!cookieValue) {
+				this.consent = null;
+				this.consentToken = null;
+				return;
+			}
+
+			this.consentToken = cookieValue;
+
+			// If custom getter is provided, use it
+			if (typeof this.config.storageGetter === 'function') {
 				try {
-					this.consent = JSON.parse(atob(cookieValue));
+					const result = this.config.storageGetter(cookieValue);
+					if (result instanceof Promise) {
+						result.then(data => {
+							this.consent = data;
+							if (this.hasConsent()) {
+								this.activateConsentedScripts();
+							}
+						}).catch(() => {
+							this.consent = null;
+						});
+					} else {
+						this.consent = result;
+					}
 				} catch (e) {
 					this.consent = null;
 				}
+				return;
 			}
+
+			// In server mode, consent should be pre-loaded via initialConsent
+			// Cookie only contains opaque token
+			if (this.config.storageMode === 'server') {
+				// Token exists but consent not pre-loaded
+				// Fetch from API if available
+				if (this.config.apiUrl) {
+					this.fetchConsentFromApi(cookieValue);
+				}
+				return;
+			}
+
+			// Legacy mode: decode from cookie (backwards compatibility)
+			try {
+				this.consent = JSON.parse(atob(cookieValue));
+			} catch (e) {
+				this.consent = null;
+				this.consentToken = null;
+			}
+		}
+
+		/**
+		 * Fetch consent data from API using token
+		 */
+		fetchConsentFromApi(token) {
+			return this.sendToApi('get_consent', { token })
+				.then(result => {
+					if (result && result.success && result.data) {
+						this.consent = result.data;
+						if (this.hasConsent()) {
+							this.activateConsentedScripts();
+						}
+					}
+					return this.consent;
+				})
+				.catch(() => {
+					this.consent = null;
+					return null;
+				});
 		}
 
 		/**
@@ -286,9 +359,10 @@
 			const allCategories = Object.keys(this.config.categories);
 			const rejectedCategories = allCategories.filter(cat => !acceptedCategories.includes(cat));
 			const previousConsent = this.consent;
+			const previousToken = this.consentToken;
 			const isFirstConsent = !previousConsent;
 
-			// Generate consent data
+			// Generate consent data (local)
 			this.consent = {
 				consent_id: this.generateConsentId(),
 				accepted_categories: acceptedCategories,
@@ -301,21 +375,51 @@
 				previous_consent: previousConsent,
 			};
 
-			// Save to cookie
-			this.saveConsentCookie();
+			// In server mode, send to API first and get token
+			if (this.config.storageMode === 'server' && this.config.apiUrl) {
+				this.sendToApi('give_consent', {
+					categories: acceptedCategories,
+					method: method,
+					previous_consent: previousConsent,
+					previous_token: previousToken,
+					metadata: {
+						user_agent: navigator.userAgent,
+						page_url: window.location.href,
+						referrer: document.referrer,
+						is_update: !isFirstConsent,
+					},
+				}).then(result => {
+					if (result && result.success) {
+						// Use token from server response
+						const token = result.cookie || result.token;
+						if (token) {
+							this.saveConsentCookie(token);
+						}
+						// Update consent with server data if provided
+						if (result.data) {
+							this.consent = { ...this.consent, ...result.data };
+						}
+					}
+				});
+			} else {
+				// Legacy mode or custom storage: save directly
+				this.saveConsentCookie();
 
-			// Send to PHP API for server-side event handling
-			this.sendToApi('give_consent', {
-				categories: acceptedCategories,
-				method: method,
-				previous_consent: previousConsent, // Send JS previous consent to PHP
-				metadata: {
-					user_agent: navigator.userAgent,
-					page_url: window.location.href,
-					referrer: document.referrer,
-					is_update: !isFirstConsent,
-				},
-			});
+				// Still send to API for event handling if available
+				if (this.config.apiUrl) {
+					this.sendToApi('give_consent', {
+						categories: acceptedCategories,
+						method: method,
+						previous_consent: previousConsent,
+						metadata: {
+							user_agent: navigator.userAgent,
+							page_url: window.location.href,
+							referrer: document.referrer,
+							is_update: !isFirstConsent,
+						},
+					});
+				}
+			}
 
 			// Dispatch events
 			const eventType = isFirstConsent ? EVENTS.CONSENT_GIVEN : EVENTS.CONSENT_UPDATED;
@@ -415,14 +519,51 @@
 		}
 
 		/**
-		 * Save consent to cookie
+		 * Save consent token to cookie
+		 * @param {string|null} token - Token to save, or null to use API response
 		 */
-		saveConsentCookie() {
-			const value = btoa(JSON.stringify(this.consent));
+		saveConsentCookie(token = null) {
+			// Determine what value to store in cookie
+			let value;
+
+			if (token) {
+				// Use provided token (from API response)
+				value = token;
+				this.consentToken = token;
+			} else if (typeof this.config.storageSetter === 'function') {
+				// Use custom setter
+				const result = this.config.storageSetter(this.consent);
+				if (result instanceof Promise) {
+					result.then(t => {
+						if (t) {
+							this.saveConsentCookie(t);
+						}
+					});
+					return;
+				}
+				value = result;
+				this.consentToken = value;
+			} else if (this.config.storageMode === 'legacy') {
+				// Legacy mode: encode full consent to cookie
+				value = btoa(JSON.stringify(this.consent));
+			} else {
+				// Server mode: token should come from API
+				// Generate temporary local token if no API
+				if (!this.config.apiUrl) {
+					value = this.generateLocalToken();
+					this.consentToken = value;
+				} else {
+					// Wait for API to provide token
+					return;
+				}
+			}
+
+			if (!value) return;
+
 			const expires = new Date();
 			expires.setDate(expires.getDate() + this.config.cookieExpiry);
 
-			let cookieString = `${this.config.cookieName}=${value}`;
+			let cookieString = `${this.config.cookieName}=${encodeURIComponent(value)}`;
 			cookieString += `; expires=${expires.toUTCString()}`;
 			cookieString += `; path=${this.config.cookiePath}`;
 
@@ -437,6 +578,15 @@
 			cookieString += `; samesite=${this.config.cookieSameSite}`;
 
 			document.cookie = cookieString;
+		}
+
+		/**
+		 * Generate a local opaque token (for fallback when no API)
+		 */
+		generateLocalToken() {
+			const array = new Uint8Array(32);
+			crypto.getRandomValues(array);
+			return Array.from(array, b => b.toString(16).padStart(2, '0')).join('');
 		}
 
 		/**
