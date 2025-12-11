@@ -386,16 +386,18 @@ $banner->setStorage(new MyCustomStorage());
 
 ### SQLite Storage
 
-Store consent in a SQLite database for persistent, queryable storage:
+Store consent in a SQLite database for persistent, queryable storage. The database and tables are created automatically if they don't exist:
 
 ```php
 use Chronex\CookieBanner\Storage\SqliteStorage;
 
 // Create SQLite storage
 $storage = new SqliteStorage(
-    __DIR__ . '/data/consents.sqlite',  // Database path
+    __DIR__ . '/data/consents.sqlite',  // Database path (auto-created)
     'cookie_consents',                   // Table name (optional)
-    'your-secret-key'                    // Secret for token generation (optional)
+    'your-secret-key',                   // Secret for token generation (optional)
+    32,                                  // Token length (optional)
+    'myapp_'                             // Table prefix (optional)
 );
 
 $banner = new CookieBanner([
@@ -411,7 +413,14 @@ $storage->count();                        // Total records
 $storage->getStatistics();                // Stats by method/date
 $storage->exportAll();                    // Export all records
 $storage->cleanup(365);                   // Delete records older than X days
+$storage->getTablePrefix();               // Get table prefix
 ```
+
+**Features:**
+- Database file and directory are created automatically if they don't exist
+- Tables are created automatically on first use
+- Table prefix support for multi-application environments
+- WAL mode enabled for better concurrency
 
 See `examples/sqlite-api/` for a complete working example with admin panel.
 

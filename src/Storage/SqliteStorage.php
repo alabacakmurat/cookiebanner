@@ -18,22 +18,26 @@ class SqliteStorage implements StorageInterface
 {
 	private PDO $pdo;
 	private string $tableName;
+	private string $tablePrefix;
 	private string $secretKey;
 	private int $tokenLength;
 
 	/**
 	 * @param string $databasePath Path to SQLite database file
-	 * @param string $tableName Table name for consent storage
+	 * @param string $tableName Table name for consent storage (without prefix)
 	 * @param string $secretKey Secret key for token generation
 	 * @param int $tokenLength Length of random bytes for token
+	 * @param string $tablePrefix Prefix for all table names
 	 */
 	public function __construct(
 		string $databasePath,
 		string $tableName = 'cookie_consents',
 		string $secretKey = '',
-		int $tokenLength = 32
+		int $tokenLength = 32,
+		string $tablePrefix = ''
 	) {
-		$this->tableName = $tableName;
+		$this->tablePrefix = $tablePrefix;
+		$this->tableName = $tablePrefix . $tableName;
 		$this->secretKey = $secretKey ?: $this->generateDefaultSecret();
 		$this->tokenLength = $tokenLength;
 
@@ -47,7 +51,11 @@ class SqliteStorage implements StorageInterface
 
 	private function initializeDatabase(string $databasePath): void
 	{
-		$isNewDatabase = !file_exists($databasePath);
+		// Create directory if it doesn't exist
+		$dir = dirname($databasePath);
+		if ($dir !== '.' && !is_dir($dir)) {
+			mkdir($dir, 0755, true);
+		}
 
 		$this->pdo = new PDO(
 			'sqlite:' . $databasePath,
@@ -63,7 +71,28 @@ class SqliteStorage implements StorageInterface
 		// Enable WAL mode for better concurrency
 		$this->pdo->exec('PRAGMA journal_mode=WAL');
 
-		if ($isNewDatabase) {
+		// Always ensure table exists (creates if not exists)
+		$this->ensureTableExists();
+	}
+
+	/**
+	 * Check if the consent table exists.
+	 */
+	private function tableExists(): bool
+	{
+		$sql = "SELECT name FROM sqlite_master WHERE type='table' AND name = :table_name";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute(['table_name' => $this->tableName]);
+
+		return $stmt->fetch() !== false;
+	}
+
+	/**
+	 * Ensure the table exists, creating it if necessary.
+	 */
+	private function ensureTableExists(): void
+	{
+		if (!$this->tableExists()) {
 			$this->createTable();
 		}
 	}
@@ -247,11 +276,19 @@ class SqliteStorage implements StorageInterface
 	}
 
 	/**
-	 * Get the table name.
+	 * Get the table name (with prefix).
 	 */
 	public function getTableName(): string
 	{
 		return $this->tableName;
+	}
+
+	/**
+	 * Get the table prefix.
+	 */
+	public function getTablePrefix(): string
+	{
+		return $this->tablePrefix;
 	}
 
 	/**
