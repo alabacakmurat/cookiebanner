@@ -700,6 +700,208 @@ Check the `examples/` directory:
 -   `user-tracking.php` - Associate consent with logged-in users
 -   `blocking.php` - Blocking mode (require consent before site access)
 
+## Troubleshooting & Common Issues
+
+### Scripts Not Being Blocked Automatically
+
+**Problem:** Third-party scripts (Google Analytics, Facebook Pixel, etc.) are not being blocked even though `autoBlock` is enabled.
+
+**Cause:** The JavaScript blocker must be loaded **before** the scripts you want to block. Browser parses and executes scripts in order, so if a script loads before the cookie banner JS, it cannot be intercepted.
+
+**Solution 1: Load cookie banner JS first (Recommended)**
+
+```php
+<!DOCTYPE html>
+<html>
+<head>
+    <?= $banner->renderCss() ?>
+
+    <!-- Cookie Banner JS MUST be loaded FIRST -->
+    <?= $banner->renderJs() ?>
+
+    <!-- Third-party scripts AFTER cookie banner -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA-XXX"></script>
+</head>
+```
+
+**Solution 2: Use `type="text/plain"` for manual blocking**
+
+```html
+<!-- Manually block by changing type -->
+<script type="text/plain" data-chronex-cb-category="analytics"
+        src="https://www.googletagmanager.com/gtag/js?id=GA-XXX"></script>
+
+<script type="text/plain" data-chronex-cb-category="advertising">
+    // Facebook Pixel code here
+    fbq('init', 'PIXEL_ID');
+</script>
+```
+
+**Solution 3: Use PHP-based script registration**
+
+```php
+// Register scripts in PHP - they will be rendered with correct blocking
+$banner->registerScript(
+    'google_analytics',
+    'analytics',
+    '<script async src="https://www.googletagmanager.com/gtag/js?id=GA-XXX"></script>'
+);
+
+// In your HTML
+echo $banner->renderScript('google_analytics');
+// or
+echo $banner->renderAllScripts();
+```
+
+### Auto-detection Not Working for Custom Scripts
+
+**Problem:** Custom third-party scripts are not being auto-detected and blocked.
+
+**Cause:** The built-in provider patterns may not match your script URLs.
+
+**Solution:** The library includes patterns for common providers (Google Analytics, Facebook, etc.). For custom scripts, either:
+
+1. Add `data-chronex-cb-category` attribute manually
+2. Register a custom provider in PHP:
+
+```php
+$banner->getScriptBlocker()->registerProvider('my_analytics', 'analytics', [
+    'patterns' => [
+        'my-analytics-service.com',
+        'tracker.mycompany.com',
+    ],
+]);
+```
+
+### Consent Not Persisting After Page Reload
+
+**Problem:** User gives consent but it's not remembered on next page load.
+
+**Possible causes:**
+
+1. **Cookie not being set:** Check browser developer tools → Application → Cookies
+2. **Cookie domain mismatch:** If using subdomains, set `cookieDomain`:
+   ```php
+   $banner = new CookieBanner([
+       'cookieDomain' => '.example.com', // Note the leading dot
+   ]);
+   ```
+3. **Secure cookie on HTTP:** Set `cookieSecure` to false for local development:
+   ```php
+   $banner = new CookieBanner([
+       'cookieSecure' => false, // Only for local development!
+   ]);
+   ```
+4. **Storage backend issue:** If using session/database storage, ensure the API endpoint is configured:
+   ```php
+   $banner = new CookieBanner([
+       'apiUrl' => '/consent-api.php',
+       'storageType' => 'session',
+   ]);
+   ```
+
+### Banner Not Showing
+
+**Problem:** The cookie banner doesn't appear on the page.
+
+**Checklist:**
+
+1. Ensure you're calling all render methods:
+   ```php
+   // In <head>
+   echo $banner->renderCss();
+
+   // Before </body>
+   echo $banner->render();    // HTML
+   echo $banner->renderJs();  // JavaScript
+   ```
+
+2. Check if consent already exists (banner won't show if user already consented):
+   ```javascript
+   // Force show banner for testing
+   chronexCbInstance.showBanner();
+   ```
+
+3. Check browser console for JavaScript errors
+
+4. Verify CSS is loaded (elements might be hidden)
+
+### Scripts Load Before Consent is Given
+
+**Problem:** Even with blocking enabled, scripts execute before user gives consent.
+
+**This happens when:**
+
+1. Scripts are in `<head>` before cookie banner JS
+2. Scripts are loaded dynamically by other scripts
+3. Scripts don't match any provider pattern
+
+**Best practice setup:**
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+
+    <!-- 1. CSS can be anywhere in head -->
+    <?= $banner->renderCss() ?>
+
+    <!-- 2. Cookie Banner JS should be FIRST script -->
+    <?= $banner->renderJs() ?>
+
+    <!-- 3. All trackable scripts AFTER, with proper attributes -->
+    <script type="text/plain" data-chronex-cb-category="analytics"
+            async src="https://www.googletagmanager.com/gtag/js?id=GA-XXX"></script>
+</head>
+<body>
+    <!-- Content -->
+
+    <!-- 4. Banner HTML before closing body -->
+    <?= $banner->render() ?>
+</body>
+</html>
+```
+
+### JavaScript Events Not Firing
+
+**Problem:** Event listeners are not receiving events.
+
+**Solution:** Register listeners before or immediately after banner initialization:
+
+```javascript
+// Option 1: Listen on document (always works)
+document.addEventListener('chronex-cb:consent:given', function(e) {
+    console.log('Consent given:', e.detail);
+});
+
+// Option 2: Wait for init event
+document.addEventListener('chronex-cb:init', function(e) {
+    const banner = e.detail.instance;
+    banner.on('consent.given', function(data) {
+        console.log('Consent given:', data);
+    });
+});
+```
+
+### Blocking Mode Not Preventing Interaction
+
+**Problem:** In blocking mode, users can still interact with the page.
+
+**Ensure:**
+
+1. Using the `blocking` template or setting `blockingMode: true`
+2. CSS is properly loaded (the overlay requires CSS)
+
+```php
+$banner = new CookieBanner([
+    'template' => 'blocking',
+    // or
+    'blockingMode' => true,
+]);
+```
+
 ## Requirements
 
 -   PHP 8.0+
