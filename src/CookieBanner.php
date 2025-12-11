@@ -408,6 +408,22 @@ class CookieBanner
 	}
 
 	/**
+	 * Get accepted categories
+	 */
+	public function getAcceptedCategories(): array
+	{
+		return $this->consentManager->getAcceptedCategories();
+	}
+
+	/**
+	 * Get rejected categories
+	 */
+	public function getRejectedCategories(): array
+	{
+		return $this->consentManager->getRejectedCategories();
+	}
+
+	/**
 	 * Set user identifier to associate consent with a logged-in user
 	 *
 	 * @param string|null $identifier User ID, email hash, or any unique identifier
