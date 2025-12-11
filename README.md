@@ -186,6 +186,34 @@ Floating button that expands to show cookie options.
 
 -   Positions: `bottom-left`, `bottom-right`
 
+### Blocking
+
+Full-screen overlay that blocks site access until cookies are accepted. Ideal for strict GDPR compliance.
+
+```php
+// Using default blocking template
+$banner = new CookieBanner([
+    'blockingMode' => true,
+]);
+
+// Using custom blocking template
+$banner = new CookieBanner([
+    'blockingMode' => true,
+    'template' => 'my-custom-blocking', // uses templates/my-custom-blocking.php
+]);
+
+// Or with full path
+$banner = new CookieBanner([
+    'blockingMode' => true,
+    'template' => '/path/to/my-blocking-template.php',
+]);
+```
+
+When `blockingMode` is enabled:
+- If no `template` is specified, the default `blocking` template is used
+- If a custom `template` is specified, that template is used instead
+- The overlay prevents any interaction with the page until consent is given
+
 ## Cookie Categories
 
 Default categories:
@@ -589,7 +617,47 @@ $banner->registerLanguage('ja', [
 
 ## Custom Templates
 
-Create your own template:
+### Using Custom Templates Path
+
+You can specify a custom templates directory. The library will look for templates in your custom path first, then fall back to built-in templates:
+
+```php
+$banner = new CookieBanner([
+    'templatesPath' => '/path/to/my/templates',
+    'template' => 'my-custom', // looks for my-custom.php in templatesPath
+]);
+```
+
+**How it works:**
+1. If template name is an absolute path, use it directly
+2. Look for the template in `templatesPath` (if specified)
+3. Fall back to built-in `templates/` directory
+
+This means you can override built-in templates or create new ones while still having access to `classic`, `modern`, `blocking`, etc.
+
+```php
+// Override the classic template
+$banner = new CookieBanner([
+    'templatesPath' => '/my/templates', // contains classic.php
+    'template' => 'classic', // uses /my/templates/classic.php
+]);
+
+// Use custom template, built-in templates still available
+$banner = new CookieBanner([
+    'templatesPath' => '/my/templates',
+    'template' => 'my-special', // uses /my/templates/my-special.php
+]);
+
+// Can still use built-in templates
+$banner2 = new CookieBanner([
+    'templatesPath' => '/my/templates',
+    'template' => 'modern', // falls back to built-in modern.php
+]);
+```
+
+### Creating a Template Class
+
+For more control, create your own template class:
 
 ```php
 use Chronex\CookieBanner\Template\AbstractTemplate;
