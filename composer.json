@@ -43,11 +43,17 @@
     },
     "scripts": {
         "test": "phpunit",
-        "analyse": "phpstan analyse src --level=8"
+        "analyse": "phpstan analyse src --level=8",
+        "publish-assets": "Chronex\\CookieBanner\\Asset\\ComposerScripts::publishAssets"
     },
     "extra": {
         "branch-alias": {
             "dev-main": "1.0-dev"
+        },
+        "cookiebanner": {
+            "publish-path": "public/vendor/cookiebanner",
+            "minify": false,
+            "combined": false
         }
     },
     "config": {
