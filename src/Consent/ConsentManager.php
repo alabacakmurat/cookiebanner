@@ -310,6 +310,8 @@ class ConsentManager
 	public function setStorage(StorageInterface $storage): self
 	{
 		$this->storage = $storage;
+		// Reload consent from new storage
+		$this->loadCurrentConsent();
 		return $this;
 	}
 
