@@ -384,6 +384,37 @@ $banner->setStorageCallbacks(
 $banner->setStorage(new MyCustomStorage());
 ```
 
+### SQLite Storage
+
+Store consent in a SQLite database for persistent, queryable storage:
+
+```php
+use Chronex\CookieBanner\Storage\SqliteStorage;
+
+// Create SQLite storage
+$storage = new SqliteStorage(
+    __DIR__ . '/data/consents.sqlite',  // Database path
+    'cookie_consents',                   // Table name (optional)
+    'your-secret-key'                    // Secret for token generation (optional)
+);
+
+$banner = new CookieBanner([
+    'apiUrl' => '/consent-api',
+]);
+$banner->setStorage($storage);
+
+// Additional query methods available:
+$storage->findByUserIdentifier($userId);  // Find consent by user
+$storage->findByConsentId($consentId);    // Find by consent ID
+$storage->getAll($limit, $offset);        // Paginated results
+$storage->count();                        // Total records
+$storage->getStatistics();                // Stats by method/date
+$storage->exportAll();                    // Export all records
+$storage->cleanup(365);                   // Delete records older than X days
+```
+
+See `examples/sqlite-api/` for a complete working example with admin panel.
+
 ### Custom Storage Class
 
 Implement `StorageInterface` for complete control:
